@@ -2,6 +2,7 @@
 import HSelect from '@/components/select'
 import HInput from '@/components/input'
 import { HTable, HTableColumn } from '@/components/table'
+import { ElTable } from 'element-plus'
 </script>
 
 <template>
@@ -11,5 +12,6 @@ import { HTable, HTableColumn } from '@/components/table'
     <h-table>
       <h-table-column></h-table-column>
     </h-table>
+    <el-table />
   </div>
 </template>
