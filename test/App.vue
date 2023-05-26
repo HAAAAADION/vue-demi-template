@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import HSelect from '@/components/select'
-import HInput from '@/components/input'
-import { HTable, HTableColumn } from '@/components/table'
+// import HSelect from '@/components/select'
+import HInput from '@/components/input/index.vue'
+// import { HTable, HTableColumn } from '@/components/table'
 import { ElTable } from 'element-plus'
 </script>
 

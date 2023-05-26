@@ -3,6 +3,7 @@ node_modules
 dist
 dist-ssr
 *.local
+src/components/element.ts
 
 # Editor directories and files
 .idea

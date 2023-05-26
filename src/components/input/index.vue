@@ -1,5 +1,13 @@
-import { toRefs, defineComponent } from 'vue'
-import { ElInput, ElInputNumber } from 'element-plus'
+<template>
+  <div>
+    <div>a: {{ a }}</div>
+    <component :is="Com" />
+  </div>
+</template>
+
+<script lang="ts">
+import { ref, toRefs, defineComponent } from 'vue-demi'
+import { ElInput, ElInputNumber } from '@/components/element'
 import { isEmpty } from '@/utils'
 
 export default defineComponent({
@@ -58,17 +66,12 @@ export default defineComponent({
 
     const Com = (number.value ? ElInputNumber : ElInput) as any
 
-    return () => (
-      <Com
-        {...attrs}
-        {...listeners}
-        modelValue={modelValue.value}
-        maxlength={maxLength}
-        showWordLimit={maxLength && textarea.value}
-        type={textarea.value ? 'textarea' : 'text'}
-        placeholder={placeholder.value}
-        controls={controls.value}
-      />
-    )
+    const a = ref('123')
+
+    return {
+      a: a,
+      Com
+    }
   }
 })
+</script>

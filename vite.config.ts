@@ -2,10 +2,18 @@ import { defineConfig } from 'vite'
 import path, { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+// import vueJsx from '@vitejs/plugin-vue2-jsx'
 import ElementPlus from 'unplugin-element-plus/vite'
+import { isVue2, version } from 'vue-demi'
+// import { createVuePlugin } from 'vite-plugin-vue2'
 
-export default defineConfig(({ mode }) => {
-  const plugins = [vue(), vueJsx()]
+export default defineConfig(async ({ mode }) => {
+  console.log('===vue 版本===: ', version)
+
+  const plugins = isVue2
+    ? [(await import('vite-plugin-vue2')).createVuePlugin({ jsx: true })]
+    : [vue(), vueJsx()]
+
   if (mode !== 'production') {
     plugins.push(ElementPlus())
   }
@@ -17,7 +25,11 @@ export default defineConfig(({ mode }) => {
         '@': path.resolve(__dirname, './src')
       }
     },
+    optimizeDeps: {
+      exclude: ['vue-demi']
+    },
     build: {
+      outDir: isVue2 ? 'dist/vue2' : 'dist/vue3',
       lib: {
         entry: resolve(__dirname, 'src/main.ts'),
         name: 'component',
@@ -25,21 +37,28 @@ export default defineConfig(({ mode }) => {
         // formats: ['es']
       },
       rollupOptions: {
-        external: ['vue', 'element-plus', 'async-validator']
+        external: [
+          'vue',
+          'vue-demi',
+          'element-ui',
+          'element-plus',
+          'async-validator',
+          '@vue/composition-api'
+        ],
         // input: {
         //   main: 'src/main.ts'
         //   // main2: 'src/main.ts'
         // }
-        // output: {
-        //   // // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
-        //   // entryFileNames: '[name].js',
-        //   // // format: "es",
-        //   // inlineDynamicImports: false,
-        //   globals: {
-        //     vue: 'Vue',
-        //     vue2: 'Vue',
-        //   },
-        // },
+        output: {
+          // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
+          // entryFileNames: '[name].js',
+          // // format: "es",
+          // inlineDynamicImports: false,
+          globals: {
+            vue: 'Vue',
+            'vue-demi': 'VueDemi'
+          }
+        }
       }
     }
   }
