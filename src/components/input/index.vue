@@ -19,10 +19,10 @@
         @change="listeners.change"
         @blur="listeners.blur"
       >
-        <template #prefix><slot name="prefix" /></template>
-        <template #suffix><slot name="suffix" /></template>
-        <template #prepend><slot name="prepend" /></template>
-        <template #append><slot name="append" /></template>
+        <template v-if="slots.prefix" #prefix><slot name="prefix" /></template>
+        <template v-if="slots.suffix" #suffix><slot name="suffix" /></template>
+        <template v-if="slots.prepend" #prepend><slot name="prepend" /></template>
+        <template v-if="slots.append" #append><slot name="append" /></template>
       </component>
       <span v-if="number && slots.append" :class="styles.append">
         <slot name="append" />
@@ -87,10 +87,8 @@ export default defineComponent({
       default: undefined
     }
   },
-  setup(props, a): any {
+  setup(props, { attrs, emit, slots }): any {
     const { disabled, textarea, max, number } = toRefs(props)
-
-    const { attrs, emit, slots } = a
 
     const handleChange = (type: string, e: any) => {
       const value = typeof e === 'object' ? e?.target?.value : e

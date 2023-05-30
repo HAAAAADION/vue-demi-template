@@ -1,0 +1,158 @@
+{
+  "framework": "vue",
+  "name": "@component/backend",
+  "version": "1.0.0",
+  "description-markup": "markdown",
+  "contributions": {
+    "html": {
+      "vue-components": [
+        {
+          "name": "bk-input",
+          "description": "",
+          "doc-url": "",
+          "props": [
+            {
+              "name": "readonly",
+              "description": "",
+              "type": "boolean",
+              "default": "false"
+            },
+            {
+              "name": "disabled",
+              "description": "",
+              "type": "boolean",
+              "default": "false"
+            },
+            {
+              "name": "number",
+              "description": "",
+              "type": "boolean",
+              "default": "false"
+            },
+            {
+              "name": "controls",
+              "description": "",
+              "type": "boolean",
+              "default": "false"
+            },
+            {
+              "name": "textarea",
+              "description": "",
+              "type": "boolean",
+              "default": "false"
+            },
+            {
+              "name": "placeholder",
+              "description": "",
+              "type": "string",
+              "default": "请输入"
+            },
+            {
+              "name": "clearable",
+              "description": "",
+              "type": "boolean",
+              "default": "true"
+            },
+            {
+              "name": "precision",
+              "description": "",
+              "type": "number"
+            },
+            {
+              "name": "min",
+              "description": "",
+              "type": "number"
+            },
+            {
+              "name": "max",
+              "description": "",
+              "type": "number"
+            }
+          ],
+          "slots": [
+            {
+              "name": "prefix",
+              "description": ""
+            },
+            {
+              "name": "suffix",
+              "description": ""
+            },
+            {
+              "name": "prepend",
+              "description": ""
+            },
+            {
+              "name": "append",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "bk-select",
+          "description": "",
+          "doc-url": "",
+          "props": [
+            {
+              "name": "data",
+              "description": "",
+              "type": "any[]"
+            },
+            {
+              "name": "status",
+              "description": "",
+              "type": "object | number[]",
+              "default": "[1, 2]"
+            },
+            {
+              "name": "text",
+              "description": "",
+              "type": "object | number[]",
+              "default": "{}"
+            },
+            {
+              "name": "readonly",
+              "description": "",
+              "type": "boolean",
+              "default": "false"
+            },
+            {
+              "name": "radio",
+              "description": "",
+              "type": "boolean",
+              "default": "false"
+            },
+            {
+              "name": "clearable",
+              "description": "",
+              "type": "boolean",
+              "default": "true"
+            },
+            {
+              "name": "optionProps",
+              "description": "",
+              "type": "object",
+              "default": "{}"
+            },
+            {
+              "name": "placeholder",
+              "description": "",
+              "type": "string",
+              "default": "请选择"
+            },
+            {
+              "name": "labelKey",
+              "description": "",
+              "type": "string | number"
+            },
+            {
+              "name": "valueKey",
+              "description": "",
+              "type": "string | number"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

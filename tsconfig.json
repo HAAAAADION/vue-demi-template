@@ -11,9 +11,12 @@
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
+
     "noEmit": true,
+
 //    "emitDeclarationOnly": true,
 //    "declaration": true,
+
     "jsx": "preserve",
     "baseUrl": "./",
     "paths": {

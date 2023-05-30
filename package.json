@@ -1,9 +1,10 @@
 {
   "name": "@component/backend",
-  "version": "1.0.43",
+  "version": "1.0.46",
   "type": "module",
   "main": "./dist/vue2/index.umd.cjs",
   "module": "./dist/vue2/index.js",
+  "web-types": "./web-types.json",
   "exports": {
     ".": {
       "import": "./dist/vue2/index.js",
@@ -23,6 +24,7 @@
     }
   },
   "files": [
+    "web-types.json",
     "dist"
   ],
   "scripts": {
