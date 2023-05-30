@@ -14,5 +14,7 @@
 ## number
 替换为 `<InputNumber />` 组件
 
+在 number 模式下支持 slot: prepend, append. 跟 `<Input />` 的用法一致
+
 ## textarea
 替换为 `<Input type="textarea" />` 组件

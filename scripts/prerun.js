@@ -2,7 +2,7 @@ import path from 'path'
 import { isVue2 } from 'vue-demi'
 import fs from 'fs'
 import fsExtra from 'fs-extra'
-import elementUiMap from './element-ui-map.js'
+import elementUiMap from './element-ui-component.js'
 
 // 1. 替换 vue 版本
 import { fileURLToPath } from 'node:url'
@@ -21,7 +21,12 @@ fs.writeFileSync(
   comElement,
   isVue2
     ? `export { ${Object.keys(elementUiMap)
-        .map(e => `${e} as ${elementUiMap[e]}`)
+        .map(e => {
+          const name = e.replace(/^(\w)|(-(\w))/gm, ($0, $1, $2, $3) =>
+            ($1 || $3).toLocaleUpperCase()
+          )
+          return `${name} as El${[name]}`
+        })
         .join(',')} } from 'element-ui'`
     : "export * from 'element-plus'"
 )

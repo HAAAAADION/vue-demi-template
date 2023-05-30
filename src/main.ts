@@ -1,3 +1,4 @@
-import HInput from './components/input/index.vue'
+import BkInput from './components/input/index.vue'
+import BkSelect from './components/select/index.vue'
 
-export { HInput }
+export { BkInput, BkSelect }

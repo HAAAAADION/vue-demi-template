@@ -1,0 +1,44 @@
+.input {
+  display: inline;
+}
+
+.input-number {
+  display: inline-flex;
+}
+
+.prepend, .append {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f7fa;
+  color: #909399;
+  vertical-align: middle;
+  position: relative;
+  border: 1px solid #dcdfe6;
+  border-radius: 4px;
+  padding: 0 20px;
+  height: 40px;
+  white-space: nowrap;
+}
+
+.prepend {
+  border-right: 0;
+}
+
+.append {
+  border-left: 0;
+}
+
+.prepend,
+.input-number.input-append input,
+.input-number.input-append :global(.el-input__wrapper){
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.append,
+.input-number.input-prepend input,
+.input-number.input-prepend :global(.el-input__wrapper) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}

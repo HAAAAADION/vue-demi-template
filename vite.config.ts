@@ -6,6 +6,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import ElementPlus from 'unplugin-element-plus/vite'
 import { isVue2, version } from 'vue-demi'
 // import { createVuePlugin } from 'vite-plugin-vue2'
+import replace from '@rollup/plugin-replace'
 
 export default defineConfig(async ({ mode }) => {
   console.log('===vue 版本===: ', version)
@@ -18,6 +19,15 @@ export default defineConfig(async ({ mode }) => {
     plugins.push(ElementPlus())
   }
 
+  if (isVue2) {
+    plugins.push(
+      replace({
+        'update:modelValue': 'input',
+        modelValue: 'value'
+      })
+    )
+  }
+
   return {
     plugins,
     resolve: {
@@ -27,6 +37,11 @@ export default defineConfig(async ({ mode }) => {
     },
     optimizeDeps: {
       exclude: ['vue-demi']
+    },
+    css: {
+      modules: {
+        localsConvention: 'camelCaseOnly'
+      }
     },
     build: {
       outDir: isVue2 ? 'dist/vue2' : 'dist/vue3',

@@ -1,6 +1,6 @@
 {
   "name": "@component/backend",
-  "version": "1.0.38",
+  "version": "1.0.43",
   "type": "module",
   "main": "./dist/vue2/index.umd.cjs",
   "module": "./dist/vue2/index.js",
@@ -12,6 +12,14 @@
     "./vue3": {
       "import": "./dist/vue3/index.js",
       "require": "./dist/vue3/index.umd.cjs"
+    },
+    "./vue2/style.css": {
+      "import": "./dist/vue2/style.css",
+      "require": "./dist/vue2/style.css"
+    },
+    "./vue3/style.css": {
+      "import": "./dist/vue3/style.css",
+      "require": "./dist/vue3/style.css"
     }
   },
   "files": [
@@ -30,6 +38,7 @@
     "vue-demi": "^0.14.5"
   },
   "devDependencies": {
+    "@rollup/plugin-replace": "^5.0.2",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
     "@vitejs/plugin-vue": "^4.1.0",

@@ -1,24 +1,56 @@
 <template>
-  <div>
-    <div>a: {{ a }}</div>
-    <component :is="Com" />
+  <div
+    :class="{
+      [styles.inputNumber]: number,
+      [styles.inputPrepend]: slots.prepend,
+      [styles.inputAppend]: slots.append
+    }"
+  >
+    <span v-if="readonly">{{ modelValue || '-' }}</span>
+    <template v-else>
+      <span v-if="number && slots.prepend" :class="styles.prepend">
+        <slot name="prepend" />
+      </span>
+      <component
+        v-bind="attrs"
+        :is="component"
+        :modelValue="modelValue"
+        @input="listeners.input"
+        @change="listeners.change"
+        @blur="listeners.blur"
+      >
+        <template #prefix><slot name="prefix" /></template>
+        <template #suffix><slot name="suffix" /></template>
+        <template #prepend><slot name="prepend" /></template>
+        <template #append><slot name="append" /></template>
+      </component>
+      <span v-if="number && slots.append" :class="styles.append">
+        <slot name="append" />
+      </span>
+    </template>
   </div>
 </template>
 
 <script lang="ts">
-import { ref, toRefs, defineComponent } from 'vue-demi'
+import { toRefs, defineComponent } from 'vue-demi'
 import { ElInput, ElInputNumber } from '@/components/element'
 import { isEmpty } from '@/utils'
+import styles from './index.module.scss'
 
 export default defineComponent({
-  name: 'FormInput',
+  name: 'BkInput',
   emits: ['update:modelValue', 'change', 'blur'],
+  slot: ['append'],
   props: {
     modelValue: {
       type: null,
       default: undefined
     },
     readonly: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
       type: Boolean,
       default: false
     },
@@ -37,17 +69,33 @@ export default defineComponent({
     placeholder: {
       type: String,
       default: '请输入'
+    },
+    clearable: {
+      type: Boolean,
+      default: true
+    },
+    precision: {
+      type: Number,
+      default: undefined
+    },
+    min: {
+      type: Number,
+      default: undefined
+    },
+    max: {
+      type: Number,
+      default: undefined
     }
   },
-  setup(props, { attrs, emit }) {
-    const { modelValue, textarea, placeholder, controls, readonly, number } = toRefs(props)
+  setup(props, a): any {
+    const { disabled, textarea, max, number } = toRefs(props)
 
-    const maxLength = attrs.maxlength as number
+    const { attrs, emit, slots } = a
 
     const handleChange = (type: string, e: any) => {
       const value = typeof e === 'object' ? e?.target?.value : e
 
-      if (!number.value && maxLength && e?.length > maxLength) return
+      if (!number.value && e?.length > max.value) return
 
       const res = number.value && !isEmpty(value) ? +value : value
 
@@ -56,21 +104,24 @@ export default defineComponent({
       if (type === 'blur') emit('blur', res)
     }
 
-    const listeners = ['onInput', 'onChange', 'onBlur'].reduce((res, key) => {
+    const listeners = ['input', 'change', 'blur'].reduce((res, key) => {
       res[key] = !attrs[key] ? handleChange.bind(this, key) : attrs[key]
       return res
     }, {} as Record<string, any>)
 
-    // 只读状态只输出文案
-    if (readonly.value) return () => (!isEmpty(modelValue.value) ? modelValue.value : '-')
-
-    const Com = (number.value ? ElInputNumber : ElInput) as any
-
-    const a = ref('123')
+    const component = (number.value ? ElInputNumber : ElInput) as any
 
     return {
-      a: a,
-      Com
+      styles,
+      attrs: {
+        ...props,
+        maxlength: max.value,
+        showWordLimit: !disabled.value && max.value && textarea.value,
+        type: textarea.value ? 'textarea' : 'text'
+      },
+      listeners,
+      slots,
+      component
     }
   }
 })

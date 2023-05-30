@@ -4,6 +4,12 @@
 1. 更新 package.json 的 version
 2. 运行 `npm run publish`
 
+## 支持组件
+- [x] input
+- [x] select
+- [ ] upload
+- [ ] table
+
 ## TODO
 - 打包优化
 - 多入口打包
