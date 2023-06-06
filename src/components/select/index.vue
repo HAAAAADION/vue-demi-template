@@ -5,7 +5,7 @@
     v-bind="attrs"
     :is="component"
     :modelValue="modelValue"
-    @input="handleChange"
+    @input="handleInput"
     @change="handleChange"
   >
     <component
@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { toRefs, defineComponent, computed } from 'vue-demi'
+import { toRefs, defineComponent, computed, isVue2 } from 'vue-demi'
 import { ElSelect, ElRadio, ElRadioGroup, ElOption } from '@/components/element'
 import { isFunction } from '@/utils'
 
@@ -123,7 +123,9 @@ export default defineComponent({
     const Com = radio.value ? ElRadioGroup : ElSelect
     const SubCom = radio.value ? ElRadio : ElOption
 
-    const handleChange = (e: number | string | boolean) => {
+    const handleChange = (type: 'input' | 'change', e: number | string | boolean) => {
+      if ((isVue2 && type !== 'input') || (!isVue2 && type !== 'change')) return
+
       emit('update:modelValue', e)
       emit('change', e)
     }
@@ -137,7 +139,8 @@ export default defineComponent({
       component: Com,
       subComponent: SubCom,
       isFunction,
-      handleChange
+      handleInput: handleChange.bind(this, 'input'),
+      handleChange: handleChange.bind(this, 'change')
     }
   }
 })
