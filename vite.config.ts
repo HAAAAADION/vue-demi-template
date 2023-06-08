@@ -32,6 +32,7 @@ export default defineConfig(async ({ mode }) => {
     plugins,
     resolve: {
       alias: {
+        '@/types': path.resolve(__dirname, './types'),
         '@': path.resolve(__dirname, './src')
       }
     },

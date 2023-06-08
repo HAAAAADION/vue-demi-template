@@ -44,7 +44,7 @@ export default defineComponent({
   props: {
     modelValue: {
       type: null,
-      default: undefined
+      default: null
     },
     readonly: {
       type: Boolean,
@@ -76,15 +76,15 @@ export default defineComponent({
     },
     precision: {
       type: Number,
-      default: undefined
+      default: null
     },
     min: {
       type: Number,
-      default: undefined
+      default: null
     },
     max: {
       type: Number,
-      default: undefined
+      default: null
     }
   },
   setup(props, { attrs, emit, slots }): any {

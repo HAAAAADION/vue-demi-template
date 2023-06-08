@@ -3,7 +3,7 @@
   <component
     v-else
     v-bind="attrs"
-    :is="component"
+    :is="parentComponent"
     :modelValue="modelValue"
     @input="handleInput"
     @change="handleChange"
@@ -26,9 +26,10 @@
 </template>
 
 <script lang="ts">
-import { toRefs, defineComponent, computed, isVue2 } from 'vue-demi'
+import { toRefs, defineComponent, computed, isVue2, PropType } from 'vue-demi'
 import { ElSelect, ElRadio, ElRadioGroup, ElOption } from '@/components/element'
 import { isFunction } from '@/utils'
+import { TypeSelectStatus, TypeSelectData } from '@/types/select.d'
 
 export default defineComponent({
   name: 'BkSelect',
@@ -36,18 +37,18 @@ export default defineComponent({
   props: {
     modelValue: {
       type: Number,
-      default: undefined
+      default: null
     },
     data: {
-      type: Array,
-      default: undefined
+      type: Array as PropType<Array<Record<string, any>>>,
+      default: null
     },
     status: {
-      type: [Object, Array],
+      type: [Object, Array] as PropType<TypeSelectStatus>,
       default: () => [1, 2] // 默认支持正负选项, 具体意义外部自行定义
     },
     text: {
-      type: [Object, Array],
+      type: [Object, Array] as PropType<TypeSelectStatus>,
       default: () => ({})
     },
     readonly: {
@@ -72,19 +73,19 @@ export default defineComponent({
     },
     labelKey: {
       type: [String, Number],
-      default: undefined
+      default: null
     },
     valueKey: {
       type: [String, Number],
-      default: undefined
+      default: null
     }
   },
-  setup(props, { attrs, emit }) {
+  setup(props, { attrs, emit }): any {
     const { modelValue, data, status, text, radio, readonly, valueKey, labelKey } = toRefs(props)
 
-    const selectData = computed(() => {
-      if (data.value !== undefined) {
-        return data.value.map(e => ({
+    const selectData = computed<TypeSelectData>(() => {
+      if (data.value !== null) {
+        return data.value!.map(e => ({
           code: e[valueKey.value] || e.code,
           name: e[labelKey.value] || e.name
         }))
@@ -95,13 +96,13 @@ export default defineComponent({
 
       const statusList = isArrayStatus ? status.value : Object.keys(status.value)
 
-      return statusList.map((key: string, index: number) => {
-        const value = isArrayStatus ? key : (status.value as Record<string, string>)?.[key]
+      return statusList!.map((key: string | number, index: number) => {
+        const value = isArrayStatus ? key : (status.value as Record<string | number, any>)?.[key]
         const textCode = isArrayText ? index : value
 
         return {
           code: value,
-          name: (text.value as Record<string, string>)?.[textCode]
+          name: text.value?.[textCode]
         }
       })
     })
@@ -136,7 +137,7 @@ export default defineComponent({
         ...attrs,
         ...props
       },
-      component: Com,
+      parentComponent: Com,
       subComponent: SubCom,
       isFunction,
       handleInput: handleChange.bind(this, 'input'),

@@ -56,7 +56,6 @@ export default {
   steps: './packages/steps/index.js',
   step: './packages/step/index.js',
   carousel: './packages/carousel/index.js',
-  scrollbar: './packages/scrollbar/index.js',
   'carousel-item': './packages/carousel-item/index.js',
   collapse: './packages/collapse/index.js',
   'collapse-item': './packages/collapse-item/index.js',
