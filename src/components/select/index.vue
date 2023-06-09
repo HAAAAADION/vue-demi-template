@@ -36,7 +36,7 @@ export default defineComponent({
   emits: ['update:modelValue', 'change'],
   props: {
     modelValue: {
-      type: Number,
+      type: [Number, String, Array],
       default: null
     },
     data: {
@@ -83,6 +83,18 @@ export default defineComponent({
   setup(props, { attrs, emit }): any {
     const { modelValue, data, status, text, radio, readonly, valueKey, labelKey } = toRefs(props)
 
+    const Com = computed(() => {
+      return radio.value ? ElRadioGroup : ElSelect
+    })
+    const SubCom = computed(() => {
+      return radio.value ? ElRadio : ElOption
+    })
+
+    const newAttrs = computed(() => ({
+      ...attrs,
+      ...props
+    }))
+
     const selectData = computed<TypeSelectData>(() => {
       if (data.value !== null) {
         return data.value!.map(e => ({
@@ -121,9 +133,6 @@ export default defineComponent({
       }
     }
 
-    const Com = radio.value ? ElRadioGroup : ElSelect
-    const SubCom = radio.value ? ElRadio : ElOption
-
     const handleChange = (type: 'input' | 'change', e: number | string | boolean) => {
       if ((isVue2 && type !== 'input') || (!isVue2 && type !== 'change')) return
 
@@ -133,10 +142,7 @@ export default defineComponent({
 
     return {
       selectData,
-      attrs: {
-        ...attrs,
-        ...props
-      },
+      attrs: newAttrs,
       parentComponent: Com,
       subComponent: SubCom,
       isFunction,

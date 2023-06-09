@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import { toRefs, defineComponent } from 'vue-demi'
+import { toRefs, computed, defineComponent } from 'vue-demi'
 import { ElInput, ElInputNumber } from '@/components/element'
 import { isEmpty } from '@/utils'
 import styles from './index.module.scss'
@@ -107,16 +107,20 @@ export default defineComponent({
       return res
     }, {} as Record<string, any>)
 
-    const component = (number.value ? ElInputNumber : ElInput) as any
+    const component = computed(() => {
+      return (number.value ? ElInputNumber : ElInput) as any
+    })
+
+    const newAttrs = computed(() => ({
+      ...props,
+      maxlength: max.value,
+      showWordLimit: !disabled.value && max.value && textarea.value,
+      type: textarea.value ? 'textarea' : 'text'
+    }))
 
     return {
       styles,
-      attrs: {
-        ...props,
-        maxlength: max.value,
-        showWordLimit: !disabled.value && max.value && textarea.value,
-        type: textarea.value ? 'textarea' : 'text'
-      },
+      attrs: newAttrs,
       listeners,
       slots,
       component
