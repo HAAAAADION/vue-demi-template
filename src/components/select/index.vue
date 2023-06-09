@@ -37,11 +37,11 @@ export default defineComponent({
   props: {
     modelValue: {
       type: [Number, String, Array],
-      default: null
+      default: undefined
     },
     data: {
       type: Array as PropType<Array<Record<string, any>>>,
-      default: null
+      default: undefined
     },
     status: {
       type: [Object, Array] as PropType<TypeSelectStatus>,
@@ -96,7 +96,7 @@ export default defineComponent({
     }))
 
     const selectData = computed<TypeSelectData>(() => {
-      if (data.value !== null) {
+      if (data.value !== undefined) {
         return data.value!.map(e => ({
           code: e[valueKey.value] || e.code,
           name: e[labelKey.value] || e.name

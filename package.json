@@ -1,6 +1,6 @@
 {
   "name": "@component/backend",
-  "version": "1.0.51",
+  "version": "1.0.53",
   "type": "module",
   "main": "./dist/vue2/index.umd.cjs",
   "module": "./dist/vue2/index.js",

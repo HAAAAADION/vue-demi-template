@@ -44,7 +44,7 @@ export default defineComponent({
   props: {
     modelValue: {
       type: null,
-      default: null
+      default: undefined
     },
     readonly: {
       type: Boolean,
@@ -80,11 +80,11 @@ export default defineComponent({
     },
     min: {
       type: Number,
-      default: null
+      default: undefined
     },
     max: {
       type: Number,
-      default: null
+      default: undefined
     }
   },
   setup(props, { attrs, emit, slots }): any {
@@ -93,9 +93,9 @@ export default defineComponent({
     const handleChange = (type: string, e: any) => {
       const value = typeof e === 'object' ? e?.target?.value : e
 
-      if (!number.value && e?.length > max.value) return
+      if (!number.value && max.value && e?.length > max.value) return
 
-      const res = number.value && !isEmpty(value) ? +value : value
+      const res = number.value && !isEmpty(value) ? +value : value || undefined
 
       emit('update:modelValue', res)
       emit('change', res)
