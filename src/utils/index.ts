@@ -27,3 +27,25 @@ export const isEmpty = (data: any) => {
       return false
   }
 }
+
+/**
+ * 对象安全查询
+ * @param {Object}        object      查询对象
+ * @param {String|Array}  path        路径
+ * @param {*=}            defaultVal  默认文案
+ **/
+export const safeGet = (
+  object: object,
+  path?: string | Array<string | number>,
+  defaultVal?: any
+) => {
+  if (!path) return object
+
+  let newPath = []
+  if (Array.isArray(path)) {
+    newPath = path
+  } else {
+    newPath = path.replace(/\[/g, '.').replace(/\]/g, '').split('.')
+  }
+  return newPath.reduce((o: any = {}, k) => o[k], object) || defaultVal
+}

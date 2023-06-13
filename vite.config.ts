@@ -6,7 +6,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import ElementPlus from 'unplugin-element-plus/vite'
 import { isVue2, version } from 'vue-demi'
 // import { createVuePlugin } from 'vite-plugin-vue2'
-import replace from '@rollup/plugin-replace'
+import filterReplace from 'vite-plugin-filter-replace'
 
 export default defineConfig(async ({ mode }) => {
   console.log('===vue 版本===: ', version)
@@ -21,10 +21,25 @@ export default defineConfig(async ({ mode }) => {
 
   if (isVue2) {
     plugins.push(
-      replace({
-        'update:modelValue': 'input',
-        modelValue: 'value'
-      })
+      filterReplace.default([
+        {
+          filter: /.*/,
+          replace: [
+            {
+              from: 'update:modelValue',
+              to: 'input'
+            },
+            {
+              from: 'modelValue',
+              to: 'value'
+            },
+            {
+              from: /expose\(.*?\)/gms,
+              to: ''
+            }
+          ]
+        }
+      ])
     )
   }
 

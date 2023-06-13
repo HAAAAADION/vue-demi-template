@@ -17,13 +17,14 @@
 ## 发布
 1. 运行 `npm run build`
 2. 更新 package.json 的 version
-3. 运行 `npm publish`
+3. 更新 web-types.json
+4. 运行 `npm publish`
 
 ## 支持组件
 - [x] input
 - [x] select
 - [ ] upload
-- [ ] table
+- [x] table
 
 ## TODO
 - 打包优化

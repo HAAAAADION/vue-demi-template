@@ -1,6 +1,6 @@
 {
   "name": "@component/backend",
-  "version": "1.0.53",
+  "version": "1.0.55",
   "type": "module",
   "main": "./dist/vue2/index.umd.cjs",
   "module": "./dist/vue2/index.js",
@@ -40,7 +40,6 @@
     "vue-demi": "^0.14.5"
   },
   "devDependencies": {
-    "@rollup/plugin-replace": "^5.0.2",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
     "@vitejs/plugin-vue": "^4.1.0",
@@ -60,6 +59,7 @@
     "unplugin-element-plus": "^0.7.1",
     "unplugin-vue-components": "^0.24.1",
     "vite": "^4.3.2",
+    "vite-plugin-filter-replace": "^0.1.12",
     "vite-plugin-vue2": "^2.0.3",
     "vue": "^3.3.4",
     "vue-template-compiler": "^2.6.14",
