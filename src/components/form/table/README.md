@@ -54,8 +54,12 @@ export default {
 
 > 用于快速构建列表的必填规则
 
-只传入`ruleKey`会自动构建对应字段的必填`rule`, 最终规则结果: 
+只传入`ruleKey`会自动构建对应字段的必填`rule`, 最终规则结果等同于: 
 ```javascript
+// 模版调用
+<bk-table :rule-key="['date', 'name']" />
+
+// 自动生成的规则
 data() {
   return {
     rules: {
@@ -76,9 +80,9 @@ data() {
 
 在实际业务中校验的规则总是多样化的, 比如还需要校验手机号码等, 因此还是可以适用原来的`rules`进行自定义规则
 
-`rulesKey`字段也可以和`rules`一起传入, 比如只有`date`字段需要自定义规则
+`ruleKey`字段也可以和`rules`一起传入, 比如只有`date`字段需要自定义规则
 
-在构建规则阶段，会以`rules`的规则为主, 不再自动生成規則, 因此业务需要完全定义校验规则
+在构建规则阶段，会以`rules`的规则为主, 不再自动生成必填規則, 因此业务需要完全定义校验规则
 
 ## fetchApi
 
@@ -103,7 +107,7 @@ methods: {
 
 ## autoFetch
 
-是否默认请(created)异步接口, 该参数需要和 fetchApi 组合使用, 默认开启
+是否默认请求(类 created 时机)异步接口, 该参数需要和 fetchApi 组合使用, 默认开启
 
 ## showPagination
 
