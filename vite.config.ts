@@ -6,41 +6,21 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import ElementPlus from 'unplugin-element-plus/vite'
 import { isVue2, version } from 'vue-demi'
 // import { createVuePlugin } from 'vite-plugin-vue2'
-import filterReplace from 'vite-plugin-filter-replace'
+import { preprocessor } from './scripts/vite-plugin-preprocessor'
 
 export default defineConfig(async ({ mode }) => {
   console.log('===vue 版本===: ', version)
 
-  const plugins = isVue2
-    ? [(await import('vite-plugin-vue2')).createVuePlugin({ jsx: true })]
-    : [vue(), vueJsx()]
+  const plugins = [preprocessor]
+
+  if (isVue2) {
+    plugins.push((await import('vite-plugin-vue2')).createVuePlugin({ jsx: true }))
+  } else {
+    plugins.push(vue(), vueJsx())
+  }
 
   if (mode !== 'production') {
     plugins.push(ElementPlus())
-  }
-
-  if (isVue2) {
-    plugins.push(
-      filterReplace.default([
-        {
-          filter: /.*/,
-          replace: [
-            {
-              from: 'update:modelValue',
-              to: 'input'
-            },
-            {
-              from: 'modelValue',
-              to: 'value'
-            },
-            {
-              from: /expose\(.*?\)/gms,
-              to: ''
-            }
-          ]
-        }
-      ])
-    )
   }
 
   return {

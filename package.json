@@ -1,6 +1,6 @@
 {
   "name": "@component/backend",
-  "version": "1.0.55",
+  "version": "1.0.56",
   "type": "module",
   "main": "./dist/vue2/index.umd.cjs",
   "module": "./dist/vue2/index.js",
@@ -59,7 +59,6 @@
     "unplugin-element-plus": "^0.7.1",
     "unplugin-vue-components": "^0.24.1",
     "vite": "^4.3.2",
-    "vite-plugin-filter-replace": "^0.1.12",
     "vite-plugin-vue2": "^2.0.3",
     "vue": "^3.3.4",
     "vue-template-compiler": "^2.6.14",

@@ -1,5 +1,5 @@
 <template>
-  <template v-if="readonly">{{ text }}</template>
+  <template v-if="readonly">{{ readText }}</template>
   <component
     v-else
     v-bind="attrs"
@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { toRefs, defineComponent, computed, isVue2, PropType } from 'vue-demi'
+import { toRefs, defineComponent, computed, PropType } from 'vue-demi'
 import { ElSelect, ElRadio, ElRadioGroup, ElOption } from '@/components/element'
 import { isFunction } from '@/utils'
 import { TypeSelectStatus, TypeSelectData } from '@/types/select.d'
@@ -121,7 +121,7 @@ export default defineComponent({
 
     // 只读文案
     if (readonly.value) {
-      const value = computed(() => {
+      const readValue = computed(() => {
         const cur = selectData.value.find(
           (e: any) => (e[valueKey.value] || e.code) === modelValue.value
         ) as any
@@ -129,12 +129,21 @@ export default defineComponent({
       })
 
       return {
-        text: value.value || '-'
+        readText: readValue.value || '-'
       }
     }
 
     const handleChange = (type: 'input' | 'change', e: number | string | boolean) => {
-      if ((isVue2 && type !== 'input') || (!isVue2 && type !== 'change')) return
+      let checkType
+
+      // #ifdef VUE3
+      checkType = 'change'
+      // #endif
+      // #ifdef VUE2
+      checkType = 'input'
+      // #endif
+
+      if (checkType && type !== checkType) return
 
       emit('update:modelValue', e)
       emit('change', e)

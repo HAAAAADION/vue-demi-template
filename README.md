@@ -14,6 +14,28 @@
 
 测试组件效果可修改 `/test/App.vue` 文件进行测试组件实际效果
 
+## 条件编译
+部分场景需要根据 vue2 和 vue3 进行代码区分, 使用方法与 uni-app 类似: 
+```javascript
+// #ifdef VUE3
+console.log('vue3')
+// #endif
+// #ifdef VUE2
+console.log('vue2')
+// #endif
+```
+
+```vue
+<template>
+<!--#ifdef VUE3-->
+<div>vue3</div>
+<!--#endif-->
+<!--#ifdef VUE2-->
+<div>vue2</div>
+<!--#endif-->
+</template>
+```
+
 ## 发布
 1. 运行 `npm run build`
 2. 更新 package.json 的 version
@@ -27,10 +49,10 @@
 - [x] table
 
 ## TODO
-- 打包优化
-- 多入口打包
-- 动态生成 ts 并关联发布
-- 条件编译
+- [ ] 打包优化
+- [ ] 多入口打包
+- [ ] 动态生成 ts 并关联发布
+- [x] 条件编译
 
 ## FAQ
 1. vue2 版本如何调试?
