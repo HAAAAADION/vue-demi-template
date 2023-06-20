@@ -1,6 +1,7 @@
 <template>
   <div
     :class="{
+      [styles.input]: true,
       [styles.inputNumber]: number,
       [styles.inputPrepend]: slots.prepend,
       [styles.inputAppend]: slots.append
@@ -115,7 +116,7 @@ export default defineComponent({
       ...props,
       maxlength: max.value,
       showWordLimit: !disabled.value && max.value && textarea.value,
-      type: textarea.value ? 'textarea' : 'text'
+      type: textarea.value ? 'textarea' : attrs.type || 'text'
     }))
 
     return {
