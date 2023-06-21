@@ -119,7 +119,7 @@ export default defineComponent({
 
     if (props.autoFetch) fetchData()
 
-    expose({ refresh })
+    expose({ refresh, refreshCurrentPage: fetchData })
 
     return {
       styles,
@@ -131,7 +131,8 @@ export default defineComponent({
       loading,
       pageChange,
       sizeChange,
-      refresh
+      refresh,
+      refreshCurrentPage: fetchData
     }
   }
 })

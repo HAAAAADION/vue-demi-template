@@ -67,8 +67,8 @@ export default defineComponent({
   setup(props, { attrs, slots, expose }): any {
     const { getListRules, validateField, clearListValidate } = useValidator()
 
-    const refForm = ref(null)
-    const refLazyTable = ref(null)
+    const refForm = ref<any>(null)
+    const refLazyTable = ref<any>(null)
 
     const state = reactive({
       form: {
@@ -103,7 +103,12 @@ export default defineComponent({
 
     const refresh = (query?: Record<string, any>) => {
       if (!refLazyTable.value) return
-      ;(refLazyTable.value as any).refresh(query)
+      refLazyTable.value.refresh(query)
+    }
+
+    const refreshCurrentPage = () => {
+      if (!refLazyTable.value) return
+      refLazyTable.value.refreshCurrentPage()
     }
 
     const fetchData = async (params: TypeTableFetchApiParams) => {
@@ -122,7 +127,7 @@ export default defineComponent({
     }
 
     provide('isPureList', isPureList)
-    expose({ refresh, validate, clearValidate })
+    expose({ refresh, refreshCurrentPage, validate, clearValidate })
 
     return {
       styles,
@@ -137,6 +142,7 @@ export default defineComponent({
       Parent,
       fetchData,
       refresh,
+      refreshCurrentPage,
       validate,
       clearValidate
     }

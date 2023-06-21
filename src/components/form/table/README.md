@@ -1,6 +1,6 @@
 # 表单表格组件
 
-除了调用的组件不同之外, 表格的用法与`el-table`保持一致, 基础用法如下: 
+该组件是对 [lazy-table](../../lazy-table/README.md) 组件的二次封装, 在原有基础上增加 from 表单校验, 基础用法如下: 
 
 ```javascript
 export default {
@@ -84,35 +84,28 @@ data() {
 
 在构建规则阶段，会以`rules`的规则为主, 不再自动生成必填規則, 因此业务需要完全定义校验规则
 
-## fetchApi
+## 暴露方法
 
-该参数支持动态请求列表数据, 业务可自定义异步函数, 但需要注意该方法必须返回一个 Promise, 一般来说, 直接返回接口返回即可, 如:
+### refresh
+
+与 `lazy-table` 一致
+
+### refreshCurrentPage
+
+与 `lazy-table` 一致
+
+### validate
+
+校验表单字段, 可自定义校验某个字段/某一行的字段, 不传参数默认全部校验, 基础用法: 
 
 ```javascript
-<h-table :fetch-api="fetchSomeApi"></h-table>
-// ...
-methods: {
-  fetchSomeApi() {
-    return Promise.resolve({
-      data: Array<{}>, 
-      pageCount: numbner, 
-      pageIndex: numbner,
-      total: numbner
-    })
-  }
-}
+${ref}.validate(key?: string | string[], index?: number)
 ```
 
-如需要刷新页面或自定义调用时机等, 外部可通过 {ref}.refresh(query) 进行刷新, 传入的 query 会在组件内部进行维护额外的参数, 比如搜索参数, 外部不想要另外进行维护, 则可作为参数传入
+### clearValidate
 
-## autoFetch
+清除表单校验, 可自定义清除某个字段/某一行的校验, 不传参数默认清除全部校验, 基础用法:
 
-是否默认请求(类 created 时机)异步接口, 该参数需要和 fetchApi 组合使用, 默认开启
-
-## showPagination
-
-是否展示分页组件, 使用 `fetchApi` 会自动展示分页器
-
-## pageSize
-
-列表每页最大长度, 传入后会自动插入构建分页长度数组, 默认值为: [10, 20, 30, 40, 50, 100]
+```javascript
+${ref}.clearValidate(key?: string | string[], index?: number)
+```

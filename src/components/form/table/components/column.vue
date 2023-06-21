@@ -2,7 +2,9 @@
   <el-table-column v-bind="attrs">
     <template #default="{ row, $index }">
       <component :is="Component" :prop="`list[${$index}].${prop}`">
-        <slot :row="row" :$index="$index">{{ safeGet(row, prop) }}</slot>
+        <slot :row="row" :$index="$index">
+          {{ !slots.default && prop ? safeGet(row, prop) : null }}
+        </slot>
       </component>
     </template>
   </el-table-column>
