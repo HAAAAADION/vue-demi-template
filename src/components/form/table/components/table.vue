@@ -113,7 +113,11 @@ export default defineComponent({
 
     const fetchData = async (params: TypeTableFetchApiParams) => {
       if (props.fetchApi) {
-        const res = await props.fetchApi(params)
+        let res = (await props.fetchApi(params)) as any
+
+        // 特殊兼容 b2b 平台返回
+        if (res.status && res.data) res = res.data
+
         state.form.list = res?.data || []
         return res
       }
