@@ -1,0 +1,56 @@
+.oss {
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+  display: inline-block;
+
+  &:hover {
+    .action {
+      opacity: 1;
+    }
+  }
+}
+
+.image {
+  display: block;
+}
+
+.doc {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  font-size: 40px;
+  color: #333;
+}
+
+.action {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: opacity 0.5s;
+  pointer-events: none;
+
+  i {
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    pointer-events: auto;
+
+    & + i {
+      margin-left: 5px;
+    }
+  }
+}
+
+.perspective {
+  pointer-events: none !important;
+}

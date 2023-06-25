@@ -2,7 +2,8 @@ import { isVue2, isVue3 } from 'vue-demi'
 
 const pluginPreprocessor = (replaceList = []) => ({
   name: 'preprocessor-loader',
-  transform(code, id) {
+  enforce: 'pre',
+  transform(code, path) {
     if (!replaceList.length) return code
 
     replaceList.forEach(e => {

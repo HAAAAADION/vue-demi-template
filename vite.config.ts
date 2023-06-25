@@ -54,7 +54,10 @@ export default defineConfig(async ({ mode }) => {
           'element-ui',
           'element-plus',
           'async-validator',
-          '@vue/composition-api'
+          '@vue/composition-api',
+          'axios',
+          'ali-oss',
+          '@element-plus/icons-vue'
         ],
         // input: {
         //   main: 'src/main.ts'

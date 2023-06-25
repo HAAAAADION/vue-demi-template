@@ -1,3 +1,23 @@
+import { ElMessage } from '@/components/element'
+
+/**
+ * 根据后缀名判断链接是否图片
+ * @param   {String}  url
+ * @return  {Boolean}
+ * */
+export const isImg = (url: any) => {
+  return /\.(jpg|jpeg|png|gif|bmp|webp|svg)$/.test(url.toLowerCase())
+}
+
+/**
+ * 根据后缀名判断链接是视频
+ * @param   {String}  url
+ * @return  {Boolean}
+ * */
+export const isVideo = (url: any) => {
+  return /\.(mp4|webm|ogg)$/.test(url.toLowerCase())
+}
+
 /**
  * 判断是否函数
  * @param   {*}       data  检查内容
@@ -48,4 +68,22 @@ export const safeGet = (
     newPath = path.replace(/\[/g, '.').replace(/\]/g, '').split('.')
   }
   return newPath.reduce((o: any = {}, k) => o[k], object) || defaultVal
+}
+
+export const messageLoading = async (text: string, fn: any) => {
+  const msg = ElMessage.success({
+    message: text,
+    duration: 0
+  })
+
+  let res
+  try {
+    const method = fn instanceof Promise ? fn : fn()
+    res = await method
+  } catch (err) {
+    res = err
+  }
+
+  msg.close()
+  return res
 }
