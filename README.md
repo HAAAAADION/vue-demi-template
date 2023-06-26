@@ -46,7 +46,7 @@ console.log('vue2')
 - 表单组件
 - [x] input
 - [x] select
-- [ ] upload
+- [x] upload
 - [x] table
 
 - 普通组件
