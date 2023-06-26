@@ -7,7 +7,7 @@ import { BkTable, BkTableColumn } from '@/components/form/table'
 import BkUpload from '@/components/form/upload/index.vue'
 import BkOssFile from '@/components/form/upload/components/oss-file/index.vue'
 
-BkUpload.uploadUrl = 'http://vebk.test.gateway.huitravel.com/resource/sts/assumerole'
+BkUpload.configApiUrl = 'http://vebk.test.gateway.huitravel.com/resource/sts/assumerole'
 
 const input = ref(null)
 const select = ref(null)

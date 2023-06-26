@@ -7,7 +7,7 @@
 ```javasciprt
 import { BkUpload } from '@components/backend'
 
-BkUpload.uploadUrl = 'http://vebk.test.gateway.huitravel.com/resource/sts/assumerole'
+BkUpload.configApiUrl = 'http://vebk.test.gateway.huitravel.com/resource/sts/assumerole'
 ```
 
 ## readonly

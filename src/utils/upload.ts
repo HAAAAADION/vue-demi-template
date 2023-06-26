@@ -36,7 +36,7 @@ const getOssConfig = async (): Promise<TypeOssConfig> => {
 
     fetchCache =
       fetchCache ||
-      axios.get((BkUpload as any).uploadUrl, {
+      axios.get((BkUpload as any).configApiUrl, {
         headers: { Authorization: `Bearer ${getAuthToken()}` }
       })
 
