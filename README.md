@@ -48,6 +48,7 @@ console.log('vue2')
 - [x] select
 - [x] upload
 - [x] table
+- [x] switch
 
 - 普通组件
 - [ ] draggable

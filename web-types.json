@@ -298,6 +298,23 @@
               "default": "contain"
             }
           ]
+        },
+        {
+          "name": "bk-switch",
+          "description": "表单开关控件",
+          "doc-url": "",
+          "props": [
+            {
+              "name": "title",
+              "description": "开关标题, 位于开关左边",
+              "type": "string"
+            },
+            {
+              "name": "tips",
+              "description": "提示文案, 位于开关下方",
+              "type": "string"
+            }
+          ]
         }
       ]
     }

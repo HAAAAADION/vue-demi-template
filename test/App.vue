@@ -6,6 +6,7 @@ import HInput from '@/components/form/input/index.vue'
 import { BkTable, BkTableColumn } from '@/components/form/table'
 import BkUpload from '@/components/form/upload/index.vue'
 import BkOssFile from '@/components/form/upload/components/oss-file/index.vue'
+import BkSwitch from '@/components/form/switch/index.vue'
 
 BkUpload.configApiUrl = 'http://vebk.test.gateway.huitravel.com/resource/sts/assumerole'
 
@@ -33,6 +34,7 @@ const previewList = ref([
 ])
 
 const refList = ref(null)
+const switchValue = ref(false)
 
 const COUPON_TYPE = ref({
   FULL_DECREMENT: 1,
@@ -106,6 +108,8 @@ const fetchList = params => {
       <template #prepend>prepend</template>
       <template #append>append</template>
     </h-input>
+
+    <bk-switch v-model="switchValue" title="qwe" tips="qwe">asdasdadasd</bk-switch>
 
     <bk-upload v-model="upload" :max="99" acl />
 
