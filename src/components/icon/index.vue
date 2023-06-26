@@ -23,12 +23,12 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props, { emit }): any {
+  setup(props, { attrs, emit }): any {
     const iconList = ref<Record<string, any>>({})
 
     // #ifdef VUE3
     ;(async () => {
-      const { ZoomIn, Download, Edit, Delete, VideoPlay, Document } = await import(
+      const { ZoomIn, Download, Edit, Delete, VideoPlay, Document, Plus } = await import(
         '@element-plus/icons-vue'
       )
       iconList.value = {
@@ -37,7 +37,8 @@ export default defineComponent({
         Edit,
         Delete,
         VideoPlay,
-        Document
+        Document,
+        Plus
       }
     })()
     // #endif
@@ -48,7 +49,8 @@ export default defineComponent({
       Edit: 'el-icon-edit-outline',
       Delete: 'el-icon-delete',
       VideoPlay: 'el-icon-video-play',
-      Document: 'el-icon-document'
+      Document: 'el-icon-document',
+      Plus: 'el-icon-plus'
     }
     // #endif
 
@@ -57,6 +59,7 @@ export default defineComponent({
     }
 
     return {
+      attrs,
       iconList,
       handleClick
     }

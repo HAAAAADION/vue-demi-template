@@ -6,9 +6,10 @@ export interface TypeOssCacheConfig {
   accessKeyId: string
   accessKeySecret: string
   bucket: string
+  expiration: string
 }
 
-// oss config
+// ali-oss 实例化配置
 export interface TypeOssConfig {
   stsToken: string
   region: string
@@ -16,4 +17,21 @@ export interface TypeOssConfig {
   accessKeySecret: string
   bucket: string
   timeout: string
+}
+
+// 上传方法额外透传参数
+export interface TypeUploadOptions {
+  service?: string
+  headers: Record<string, any>
+}
+
+// el-upload 上传组件上传回调透传参数
+export interface UploadRequestOptions {
+  action: string
+  method: string
+  data: Record<string, string | Blob | [string | Blob, string]>
+  filename: string
+  file: File
+  headers: Headers | Record<string, string | number | null | undefined>
+  [key: string]: any
 }

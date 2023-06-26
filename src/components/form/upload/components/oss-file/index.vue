@@ -83,8 +83,8 @@ export default defineComponent({
     }
   },
   setup(props, { emit }): any {
-    const refPreview = ref(null)
-    const refImg = ref(null)
+    const refPreview = ref<any>(null)
+    const refImg = ref<any>(null)
 
     const state = reactive<TypeOssFileState>({
       path: undefined,
@@ -132,8 +132,9 @@ export default defineComponent({
         .map(e => state.actionMap[e])
     })
 
-    const formatPath = async (url?: string, process?: string) =>
-      formatOssUrl((url || props.url) as string, { acl: props.acl, process })
+    const formatPath = async (url?: string, process?: string) => {
+      return formatOssUrl((url || props.url) as string, { acl: props.acl, process })
+    }
 
     const initPreviewList = async () => {
       if (!isUrlImg.value) return
@@ -153,8 +154,13 @@ export default defineComponent({
       state.previewIndex = ~index ? index : 0
     }
 
-    function handlePreview() {
-      if (isUrlImg.value) return
+    async function handlePreview() {
+      if (isUrlImg.value) {
+        await initPreviewList()
+        const trigger = refImg.value.$el.querySelector('img')
+        trigger.click()
+        return
+      }
       handleDownload()
     }
 
@@ -172,7 +178,6 @@ export default defineComponent({
     // 初始化
     ;(async () => {
       state.path = await formatPath(props.url, props.process)
-      initPreviewList()
     })()
 
     return {

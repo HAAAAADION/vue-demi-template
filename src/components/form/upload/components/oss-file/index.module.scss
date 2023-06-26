@@ -37,7 +37,6 @@
   background: rgba(0, 0, 0, 0.3);
   opacity: 0;
   transition: opacity 0.5s;
-  pointer-events: none;
 
   i {
     color: #fff;
@@ -49,8 +48,4 @@
       margin-left: 5px;
     }
   }
-}
-
-.perspective {
-  pointer-events: none !important;
 }

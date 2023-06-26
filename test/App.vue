@@ -4,13 +4,22 @@ import { ElInput } from 'element-plus'
 import HSelect from '@/components/form/select/index.vue'
 import HInput from '@/components/form/input/index.vue'
 import { BkTable, BkTableColumn } from '@/components/form/table'
+import BkUpload from '@/components/form/upload/index.vue'
+import BkOssFile from '@/components/form/upload/components/oss-file/index.vue'
+
+BkUpload.uploadUrl = 'http://vebk.test.gateway.huitravel.com/resource/sts/assumerole'
 
 const input = ref(null)
 const select = ref(null)
 const max = ref(10)
-const number = ref(true)
+const number = ref(false)
 const multiple = ref(false)
 const radio = ref(false)
+const upload = ref([
+  'development/tenant/common/d7a29509e59049309a7d104a8d47140b.jpeg',
+  'development/tenant/common/2630e04922454406b93f9e4cc53eff77.png',
+  'development/tenant/common/26674243ddbe4734b657bb34da440bf6.png'
+])
 const list = ref([
   {
     name: undefined,
@@ -18,6 +27,10 @@ const list = ref([
   }
 ])
 const rules = ref({ name: { required: true, message: `请输入 `, trigger: ['change', 'blur'] } })
+const previewList = ref([
+  'localhost/tenant/common/c2f90130b74948a38ce1ddf8cdd49c8e.png',
+  'localhost/tenant/common/2f0c4db07a294a52b4c7b1921a8f6084.png'
+])
 
 const refList = ref(null)
 
@@ -87,12 +100,24 @@ const fetchList = params => {
       :status="COUPON_TYPE"
       :text="COUPON_TYPE_TEXT"
     />
-    <h-input v-model="input" :number="number" :min="1" :max="max">
+    <h-input v-model="input" :number="number" :min="1" :max="max" type="number">
       <template #prefix>prefix</template>
       <template #suffix>suffix</template>
       <template #prepend>prepend</template>
       <template #append>append</template>
     </h-input>
+
+    <bk-upload v-model="upload" :max="99" acl />
+
+    <bk-oss-file
+      url="localhost/tenant/common/dbb1864713ad4f748329f4176f101ef4.mp4"
+      :file-list="previewList"
+    />
+    <bk-oss-file url="localhost/tenant/common/c2f90130b74948a38ce1ddf8cdd49c8e.png" />
+    <bk-oss-file
+      url="localhost/tenant/common/2f0c4db07a294a52b4c7b1921a8f6084.png"
+      :file-list="previewList"
+    />
 
     <div @click="handlevalidate">校验表单</div>
     <div @click="handleclear">清除表单校验</div>

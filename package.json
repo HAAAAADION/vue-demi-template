@@ -1,6 +1,6 @@
 {
   "name": "@component/backend",
-  "version": "1.0.59",
+  "version": "1.0.61",
   "type": "module",
   "main": "./dist/vue2/index.umd.cjs",
   "module": "./dist/vue2/index.js",
@@ -37,11 +37,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@element-plus/icons-vue": "^2.1.0",
+    "compressorjs": "^1.2.1",
     "vue-demi": "^0.14.5"
   },
   "devDependencies": {
+    "@element-plus/icons-vue": "^2.1.0",
     "@types/ali-oss": "^6.16.8",
+    "@types/node": "^20.3.1",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
     "@vitejs/plugin-vue": "^4.1.0",

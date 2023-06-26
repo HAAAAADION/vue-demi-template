@@ -208,6 +208,96 @@
               "type": "string"
             }
           ]
+        },
+        {
+          "name": "bk-upload",
+          "description": "阿里云 OSS 上传控件",
+          "doc-url": "",
+          "props": [
+            {
+              "name": "readonly",
+              "description": "是否只读",
+              "type": "boolean"
+            },
+            {
+              "name": "service",
+              "description": "业务类型, 用于构建阿里云存储路径",
+              "type": "string",
+              "default": "common"
+            },
+            {
+              "name": "max",
+              "description": "文件最大上传数量",
+              "type": "string | number",
+              "default": "1"
+            },
+            {
+              "name": "imgStyle",
+              "description": "上传控件尺寸",
+              "type": "object",
+              "default": "{width: '100px',height: '100px'}"
+            },
+            {
+              "name": "acl",
+              "description": "上传是否开启私有访问",
+              "type": "boolean"
+            },
+            {
+              "name": "accept",
+              "description": "可上传类型, 传入 Array 会自动转成 String; example: image/png,image/gif",
+              "type": "string | string[]"
+            },
+            {
+              "name": "size",
+              "description": "文件上传容量最大限制, 单位 kb",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "name": "bk-oss-file",
+          "description": "阿里云 OSS 文件展示控件",
+          "doc-url": "",
+          "props": [
+            {
+              "name": "url",
+              "description": "展示文件的相对路径",
+              "type": "string"
+            },
+            {
+              "name": "action",
+              "description": "是否展示操作栏, 操作栏可操作项, [preview, download, edit, remove]",
+              "type": "string[] | boolean",
+              "default": "true"
+            },
+            {
+              "name": "acl",
+              "description": "上传是否开启私有访问",
+              "type": "boolean"
+            },
+            {
+              "name": "imgStyle",
+              "description": "上传控件尺寸",
+              "type": "object",
+              "default": "{width: '100px',height: '100px'}"
+            },
+            {
+              "name": "fileList",
+              "description": "文件列表, 用于预览整个列表, 不传只预览当前图片",
+              "type": "string[]"
+            },
+            {
+              "name": "process",
+              "description": "图床配置",
+              "type": "string"
+            },
+            {
+              "name": "fit",
+              "description": "上传图片展示效果",
+              "type": "'' | 'fill' | 'none' | 'contain' | 'cover' | 'scale-down'",
+              "default": "contain"
+            }
+          ]
         }
       ]
     }
