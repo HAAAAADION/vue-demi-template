@@ -37,7 +37,16 @@
 </template>
 
 <script lang="ts">
-import { ref, toRefs, reactive, computed, defineComponent, PropType } from 'vue-demi'
+import {
+  ref,
+  toRefs,
+  reactive,
+  computed,
+  defineComponent,
+  getCurrentInstance,
+  PropType,
+  ComponentInternalInstance
+} from 'vue-demi'
 import { UploadRequestOptions } from '@/types/upload.d'
 import { upload } from '@/utils/upload'
 import { isEmpty } from '@/utils'
@@ -103,6 +112,9 @@ export default defineComponent({
     }
   },
   setup(props, { emit }): any {
+    const { proxy } = getCurrentInstance() as ComponentInternalInstance
+    const parent = proxy?.$parent as any
+
     const refUploadHandler = ref<any>(null)
 
     const state = reactive({
@@ -146,6 +158,11 @@ export default defineComponent({
     const update = (val: string[]) => {
       emit('update:modelValue', val)
       emit('change', val)
+
+      if (parent?.validate) {
+        parent.validate('blur')
+        parent.validate('change')
+      }
     }
 
     const handleUpload = async (e: UploadRequestOptions) => {

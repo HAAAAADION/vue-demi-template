@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { ElInput } from 'element-plus'
+import { ref, reactive } from 'vue'
 import HSelect from '@/components/form/select/index.vue'
 import HInput from '@/components/form/input/index.vue'
 import { BkTable, BkTableColumn } from '@/components/form/table'
@@ -35,6 +34,17 @@ const previewList = ref([
 
 const refList = ref(null)
 const switchValue = ref(false)
+
+const ruleFormRef = ref()
+const ruleForm = reactive({
+  name: undefined,
+  url: []
+})
+
+const formRules = reactive({
+  name: [{ required: true, message: 'Please input Activity name', trigger: ['change', 'blur'] }],
+  url: [{ required: true, message: 'Please input Activity name', trigger: ['change', 'blur'] }]
+})
 
 const COUPON_TYPE = ref({
   FULL_DECREMENT: 1,
@@ -89,6 +99,10 @@ const fetchList = params => {
     }, 500)
   })
 }
+
+const handleValidate = async () => {
+  await ruleFormRef.value.validate()
+}
 </script>
 
 <template>
@@ -111,7 +125,15 @@ const fetchList = params => {
 
     <bk-switch v-model="switchValue" title="qwe" tips="qwe">asdasdadasd</bk-switch>
 
-    <bk-upload v-model="upload" :max="99" acl />
+    <div @click="handleValidate">校验</div>
+    <el-form ref="ruleFormRef" :model="ruleForm" :rules="formRules" label-width="120px">
+      <el-form-item label="name" prop="name">
+        <el-input v-model="ruleForm.name" :max="99" acl />
+      </el-form-item>
+      <el-form-item label="上传" prop="url">
+        <bk-upload v-model="ruleForm.url" :max="99" acl />
+      </el-form-item>
+    </el-form>
 
     <bk-oss-file
       url="localhost/tenant/common/dbb1864713ad4f748329f4176f101ef4.mp4"

@@ -3,7 +3,7 @@ import path, { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 // import vueJsx from '@vitejs/plugin-vue2-jsx'
-import ElementPlus from 'unplugin-element-plus/vite'
+// import ElementPlus from 'unplugin-element-plus/vite'
 import { isVue2, version } from 'vue-demi'
 // import { createVuePlugin } from 'vite-plugin-vue2'
 import { preprocessor } from './scripts/vite-plugin-preprocessor'
@@ -17,10 +17,6 @@ export default defineConfig(async ({ mode }) => {
     plugins.push((await import('vite-plugin-vue2')).createVuePlugin({ jsx: true }))
   } else {
     plugins.push(vue(), vueJsx())
-  }
-
-  if (mode !== 'production') {
-    plugins.push(ElementPlus())
   }
 
   return {

@@ -19,6 +19,7 @@
       cursor: pointer;
       position: relative;
       overflow: hidden;
+      transition: border-color .5s;
 
       .el-image {
         display: block;
@@ -43,8 +44,19 @@
   line-height: 1;
   color: #8c939d;
   text-align: center;
+  transition: color .5s;
 }
 
 .icon {
   font-size: 28px;
+}
+
+:global(.is-error) {
+  :global(.el-upload) {
+    border-color: #f00;
+  }
+
+  .trigger {
+    color: #f00
+  }
 }
