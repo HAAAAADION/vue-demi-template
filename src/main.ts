@@ -5,4 +5,6 @@ import BkOssFile from './components/form/upload/components/oss-file/index.vue'
 import BkSwitch from './components/form/switch/index.vue'
 export * from './components/form/table'
 
-export { BkInput, BkSelect, BkUpload, BkOssFile, BkSwitch }
+import BkLazySelect from './components/lazy-select/index.vue'
+
+export { BkInput, BkSelect, BkUpload, BkOssFile, BkSwitch, BkLazySelect }

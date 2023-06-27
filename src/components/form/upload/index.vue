@@ -155,6 +155,9 @@ export default defineComponent({
       return props.readonly ? ['preview', 'download'] : true
     })
 
+    /** ******************
+     *      methods     *
+     * ******************/
     const update = (val: string[]) => {
       emit('update:modelValue', val)
       emit('change', val)

@@ -1,8 +1,8 @@
 import axios, { AxiosResponse } from 'axios'
 import OSS from 'ali-oss'
 import Compressor from 'compressorjs'
-import { isEmpty, isImg } from '@/utils'
 import { TypeOssCacheConfig, TypeOssConfig, TypeUploadOptions } from '@/types/upload.d'
+import { isEmpty, isImg } from '@/utils'
 import BkUpload from '@/components/form/upload/index.vue'
 import { ElMessage } from '@/components/element'
 

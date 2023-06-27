@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
+import axios from 'axios'
 import HSelect from '@/components/form/select/index.vue'
 import HInput from '@/components/form/input/index.vue'
 import { BkTable, BkTableColumn } from '@/components/form/table'
 import BkUpload from '@/components/form/upload/index.vue'
 import BkOssFile from '@/components/form/upload/components/oss-file/index.vue'
 import BkSwitch from '@/components/form/switch/index.vue'
+import BkLazySelect from '@/components/lazy-select/index.vue'
 
 BkUpload.configApiUrl = 'http://vebk.test.gateway.huitravel.com/resource/sts/assumerole'
 
@@ -103,6 +105,18 @@ const fetchList = params => {
 const handleValidate = async () => {
   await ruleFormRef.value.validate()
 }
+
+const searchBank = async params => {
+  const res = await axios.post(
+    'http://vebk.test.gateway.huitravel.com/payment/bank/search',
+    params,
+    {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    }
+  )
+
+  return res?.data
+}
 </script>
 
 <template>
@@ -122,6 +136,13 @@ const handleValidate = async () => {
       <template #prepend>prepend</template>
       <template #append>append</template>
     </h-input>
+
+    <bk-lazy-select
+      :data="searchBank"
+      name-key="name"
+      row-key="bankCode"
+      not-found-content="没有数据"
+    />
 
     <bk-switch v-model="switchValue" title="qwe" tips="qwe">asdasdadasd</bk-switch>
 

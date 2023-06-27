@@ -43,16 +43,21 @@ console.log('vue2')
 4. 运行 `npm publish`
 
 ## 支持组件
+
 - 表单组件
+
 - [x] input
 - [x] select
 - [x] upload
 - [x] table
 - [x] switch
 
+
 - 普通组件
+
 - [ ] draggable
 - [x] oss-file
+- [x] lazy-select
 
 ## TODO
 - [ ] 打包优化
