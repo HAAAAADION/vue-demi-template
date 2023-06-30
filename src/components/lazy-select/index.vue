@@ -156,7 +156,7 @@ export default defineComponent({
     const formatStaticList = () => {
       // TODO 数据量大还需要检查上一次的结果与本次查询的条件是否匹配, 如果没有变化就不需要进行 filter 处理
       state.list = state.originList.filter(
-        (e, i) => !state.keyword || ~e[getRender(e, i)].indexOf(state.keyword)
+        (e, i) => !state.keyword || ~getRender(e, i)?.indexOf(state.keyword)
       )
 
       return state.list
