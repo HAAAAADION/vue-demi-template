@@ -53,7 +53,7 @@ export default defineComponent({
   setup(props, { attrs, slots, expose }): any {
     const state = reactive({
       loading: false,
-      list: [] as any[],
+      list: [] as Record<string, any>[],
       pagination: {
         pageCount: 0,
         pageIndex: 1,
@@ -87,7 +87,7 @@ export default defineComponent({
           pageSize
         })
 
-        const { data = [] as any[], pageCount, pageIndex, total } = res || {}
+        const { data = [] as Record<string, any>[], pageCount, pageIndex, total } = res || {}
 
         state.list = data
 

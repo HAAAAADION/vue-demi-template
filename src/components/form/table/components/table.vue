@@ -14,7 +14,16 @@
 </template>
 
 <script lang="ts">
-import { ref, toRefs, reactive, computed, provide, defineComponent, PropType } from 'vue-demi'
+import {
+  ref,
+  toRefs,
+  reactive,
+  computed,
+  watch,
+  provide,
+  defineComponent,
+  PropType
+} from 'vue-demi'
 import { isEmpty } from '@/utils'
 import { TypeTableRules, TypeTableFetchApiParams, TypeTableFetchApi } from '@/types/table.d'
 import { ElForm } from '@/components/element'
@@ -33,7 +42,7 @@ export default defineComponent({
   props: {
     data: {
       type: Array,
-      default: () => []
+      default: () => [] as PropType<Record<string, any>[]>
     },
     ruleKey: {
       type: Array as PropType<string[]>,
@@ -72,7 +81,7 @@ export default defineComponent({
 
     const state = reactive({
       form: {
-        list: props.data as any[]
+        list: props.data as Record<string, any>[]
       }
     })
 
@@ -129,6 +138,14 @@ export default defineComponent({
         total: 1
       }
     }
+
+    watch(
+      () => props.data,
+      () => {
+        state.form.list = props.data as Record<string, any>[]
+        refresh()
+      }
+    )
 
     provide('isPureList', isPureList)
     expose({ refresh, refreshCurrentPage, validate, clearValidate })
