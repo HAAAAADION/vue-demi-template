@@ -98,9 +98,12 @@ export default defineComponent({
 
       const res = number.value && !isEmpty(value) ? +value : value || undefined
 
-      emit('update:modelValue', res)
-      emit('change', res)
-      if (type === 'blur') emit('blur', res)
+      if (type === 'blur') {
+        emit('blur', res)
+      } else {
+        emit('update:modelValue', res)
+        emit('change', res)
+      }
     }
 
     const listeners = ['input', 'change', 'blur'].reduce((res, key) => {
