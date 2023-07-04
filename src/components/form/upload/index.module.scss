@@ -29,12 +29,14 @@
   }
 }
 
-.uploader, .imgs {
+.uploader,
+.imgs {
   display: inline-block;
 }
 
-.img {
-  margin-right: 10px;
+.uploader,
+.img + .img {
+  margin-left: 10px;
 }
 
 .trigger {
