@@ -116,6 +116,7 @@ export default defineComponent({
     })
 
     const newAttrs = computed(() => ({
+      ...attrs,
       ...props,
       maxlength: max.value,
       showWordLimit: !disabled.value && max.value && textarea.value,
