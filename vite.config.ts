@@ -53,7 +53,8 @@ export default defineConfig(async ({ mode }) => {
           '@vue/composition-api',
           'axios',
           'ali-oss',
-          '@element-plus/icons-vue'
+          '@element-plus/icons-vue',
+          'sortablejs'
         ],
         // input: {
         //   main: 'src/main.ts'

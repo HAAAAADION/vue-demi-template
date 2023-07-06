@@ -8,6 +8,7 @@ import BkUpload from '@/components/form/upload/index.vue'
 import BkOssFile from '@/components/form/upload/components/oss-file/index.vue'
 import BkSwitch from '@/components/form/switch/index.vue'
 import BkLazySelect from '@/components/lazy-select/index.vue'
+import BkDraggable from '@/components/draggable/index.vue'
 
 BkUpload.configApiUrl = 'http://vebk.test.gateway.huitravel.com/resource/sts/assumerole'
 
@@ -26,8 +27,13 @@ const list = ref([
   {
     name: undefined,
     age: '18'
+  },
+  {
+    name: undefined,
+    age: '20'
   }
 ])
+
 const rules = ref({ name: { required: true, message: `请输入 `, trigger: ['change', 'blur'] } })
 const previewList = ref([
   'localhost/tenant/common/c2f90130b74948a38ce1ddf8cdd49c8e.png',
@@ -115,7 +121,14 @@ const searchBank = async params => {
     }
   )
 
-  return res?.data
+  return res?.data?.data
+}
+
+const handleCreate = () => {
+  list.value.unshift({
+    name: undefined,
+    age: Date.now()
+  })
 }
 </script>
 
@@ -152,7 +165,7 @@ const searchBank = async params => {
         <el-input v-model="ruleForm.name" :max="99" acl />
       </el-form-item>
       <el-form-item label="上传" prop="url">
-        <bk-upload v-model="ruleForm.url" :max="99" acl />
+        <bk-upload v-model="ruleForm.url" :max="19" acl />
       </el-form-item>
     </el-form>
 
@@ -166,18 +179,26 @@ const searchBank = async params => {
       :file-list="previewList"
     />
 
+    <bk-draggable v-model="list">
+      <bk-table ref="refList" stripe border :data="list" :rules="rules" row-key="age">
+        <bk-table-column prop="name" label="国家">
+          <template #default="scope">
+            <el-input v-model="scope.row.name" />
+          </template>
+        </bk-table-column>
+        <bk-table-column prop="age" label="城市">
+          <template #default="scope">
+            <el-input v-model="scope.row.age" />
+          </template>
+        </bk-table-column>
+      </bk-table>
+    </bk-draggable>
+
     <div @click="handlevalidate">校验表单</div>
     <div @click="handleclear">清除表单校验</div>
     <div @click="handlerefresh">刷新</div>
-    <bk-table
-      ref="refList"
-      stripe
-      border
-      :data="list"
-      :rule-key="['name', 'age']"
-      :rules="rules"
-      :fetch-api="fetchList"
-    >
+    <div @click="handleCreate">增加一行</div>
+    <bk-table ref="refList" stripe border :data="list" :rules="rules">
       <bk-table-column prop="name" label="国家">
         <template #default="scope">
           <el-input v-model="scope.row.name" />

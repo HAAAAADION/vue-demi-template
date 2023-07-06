@@ -55,7 +55,7 @@ console.log('vue2')
 
 - 普通组件
 
-- [ ] draggable
+- [x] draggable
 - [x] oss-file
 - [x] lazy-select
 

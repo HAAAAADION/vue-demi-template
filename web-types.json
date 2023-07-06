@@ -376,6 +376,24 @@
               "default": "true"
             }
           ]
+        },
+        {
+          "name": "bk-draggable",
+          "description": "拖拽组件",
+          "doc-url": "",
+          "props": [
+            {
+              "name": "rowKey",
+              "description": "渲染主键",
+              "type": "String",
+              "default": "id"
+            },
+            {
+              "name": "options",
+              "description": "Object",
+              "type": "Object"
+            }
+          ]
         }
       ]
     }
