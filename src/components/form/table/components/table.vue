@@ -4,7 +4,7 @@
       ref="refLazyTable"
       v-bind="attrs"
       :fetch-api="fetchData"
-      :show-pagination="isShowPagination"
+      :show-pagination="showPagination"
       :page-size="pageSize"
       :auto-fetch="autoFetch"
     >
@@ -95,8 +95,6 @@ export default defineComponent({
       })
     })
 
-    // 是否展示分页器
-    const isShowPagination = computed(() => !!(props.showPagination && props.fetchApi))
     // 是否不需要 form
     const isPureList = computed(() => isEmpty(props.rules) && !props.ruleKey?.length)
     // 父组件
@@ -121,6 +119,9 @@ export default defineComponent({
     }
 
     const fetchData = async (params: TypeTableFetchApiParams) => {
+      const { pageIndex, pageSize } = params
+
+      // 异步数据
       if (props.fetchApi) {
         let res = (await props.fetchApi(params)) as any
 
@@ -131,11 +132,18 @@ export default defineComponent({
         return res
       }
 
+      // 静态数据
+      const { list } = state.form
+      const page = props.showPagination ? pageIndex : 1
+      const totalSize = state.form.list.length
+      const start = (page - 1) * pageSize
+      const pageList = props.showPagination ? list.slice(start, start + pageSize) : list
+
       return {
-        data: state.form.list,
-        pageCount: 1,
-        pageIndex: 1,
-        total: 1
+        data: pageList,
+        pageCount: Math.ceil(totalSize / pageSize),
+        pageIndex: page,
+        total: totalSize
       }
     }
 
@@ -158,7 +166,6 @@ export default defineComponent({
       slots,
       form,
       customRules,
-      isShowPagination,
       isPureList,
       Parent,
       fetchData,

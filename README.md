@@ -46,18 +46,20 @@ console.log('vue2')
 
 - 表单组件
 
-- [x] input
-- [x] select
-- [x] upload
-- [x] table
-- [x] switch
+- [x] [input](./src/components/form/input/README.md)
+- [x] [select](./src/components/form/select/README.md)
+- [x] [upload](./src/components/form/upload/README.md)
+- [x] [table](./src/components/form/table/README.md)
+- [x] [switch](./src/components/form/switch/README.md)
 
 
 - 普通组件
 
-- [x] draggable
-- [x] oss-file
-- [x] lazy-select
+- [x] [draggable](./src/components/draggable/README.md)
+- [x] [oss-file](./src/components/form/upload/components/oss-file/README.md)
+- [x] [lazy-select](./src/components/lazy-select/README.md)
+- [x] [lazy-table](./src/components/lazy-table/README.md)
+- [ ] modal
 
 ## TODO
 - [ ] 打包优化

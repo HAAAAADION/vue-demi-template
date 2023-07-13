@@ -24,14 +24,18 @@ const upload = ref([
   'development/tenant/common/26674243ddbe4734b657bb34da440bf6.png'
 ])
 const list = ref([
-  {
-    name: undefined,
-    age: '18'
-  },
-  {
-    name: undefined,
-    age: '20'
-  }
+  { name: 'xiaoming', age: 1 },
+  { name: 'xiaoming', age: 2 },
+  { name: 'xiaoming', age: 3 },
+  { name: 'xiaoming', age: 4 },
+  { name: 'xiaodong', age: 5 },
+  { name: 'xiaodong', age: 6 },
+  { name: 'xiaodong', age: 7 },
+  { name: 'xiaodong', age: 8 },
+  { name: 'hong', age: 9 },
+  { name: 'hong', age: 10 },
+  { name: 'hong', age: 11 },
+  { name: 'hong', age: 12 }
 ])
 
 const rules = ref({ name: { required: true, message: `请输入 `, trigger: ['change', 'blur'] } })
@@ -130,6 +134,18 @@ const handleCreate = () => {
     age: Date.now()
   })
 }
+
+const objectSpanMethod = ({ row, column, rowIndex, columnIndex }) => {
+  if (!columnIndex) {
+    const _row = rowIndex === 0 || rowIndex === 4 || rowIndex === 8 ? 4 : 0
+    const _col = _row ? 1 : 0
+
+    return {
+      rowspan: _row,
+      colspan: _col
+    }
+  }
+}
 </script>
 
 <template>
@@ -179,11 +195,29 @@ const handleCreate = () => {
       :file-list="previewList"
     />
 
-    <bk-draggable v-model="list">
-      <bk-table ref="refList" stripe border :data="list" :rules="rules" row-key="age">
+    <bk-draggable v-model="list" multiple row-key="age">
+      <!--      <template #item="{ item }">-->
+      <!--        <div :key="item.age" :class="`dragid_${item.age}`">-->
+      <!--          {{ item }}-->
+      <!--        </div>-->
+      <!--      </template>-->
+      <!--      <div v-for="item in list" :key="item.age" :class="`dragid_${item.age}`">-->
+      <!--        {{ item }}-->
+      <!--      </div>-->
+      <bk-table
+        ref="refList"
+        stripe
+        border
+        :data="list"
+        :rules="rules"
+        row-key="age"
+        :show-pagination="false"
+        :row-class-name="({ row }) => `drag_${row.name} dragid_${row.age}`"
+        :span-method="objectSpanMethod"
+      >
         <bk-table-column prop="name" label="国家">
           <template #default="scope">
-            <el-input v-model="scope.row.name" />
+            <el-input v-model="scope.row.name" class="dragaaa" />
           </template>
         </bk-table-column>
         <bk-table-column prop="age" label="城市">
@@ -198,7 +232,7 @@ const handleCreate = () => {
     <div @click="handleclear">清除表单校验</div>
     <div @click="handlerefresh">刷新</div>
     <div @click="handleCreate">增加一行</div>
-    <bk-table ref="refList" stripe border :data="list" :rules="rules">
+    <bk-table ref="refList" stripe border :data="list" :rules="rules" :show-pagination="false">
       <bk-table-column prop="name" label="国家">
         <template #default="scope">
           <el-input v-model="scope.row.name" />
