@@ -7,5 +7,6 @@ export * from './components/form/table'
 
 import BkLazySelect from './components/lazy-select/index.vue'
 import BkDraggable from './components/draggable/index.vue'
+import BkModal from './components/modal/index.vue'
 
-export { BkInput, BkSelect, BkUpload, BkOssFile, BkSwitch, BkLazySelect, BkDraggable }
+export { BkInput, BkSelect, BkUpload, BkOssFile, BkSwitch, BkLazySelect, BkDraggable, BkModal }

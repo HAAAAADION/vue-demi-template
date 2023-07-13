@@ -46,20 +46,21 @@ console.log('vue2')
 
 - 表单组件
 
-- [x] [input](./src/components/form/input/README.md)
-- [x] [select](./src/components/form/select/README.md)
-- [x] [upload](./src/components/form/upload/README.md)
-- [x] [table](./src/components/form/table/README.md)
-- [x] [switch](./src/components/form/switch/README.md)
+- [x] [input](./src/components/form/input/README.md) 文本框组件
+- [x] [select](./src/components/form/select/README.md) 下拉菜单组件
+- [x] [upload](./src/components/form/upload/README.md) 文件上传组件
+- [x] [table](./src/components/form/table/README.md) 表单表格组件
+- [x] [switch](./src/components/form/switch/README.md) 开关组件
 
 
 - 普通组件
 
-- [x] [draggable](./src/components/draggable/README.md)
-- [x] [oss-file](./src/components/form/upload/components/oss-file/README.md)
-- [x] [lazy-select](./src/components/lazy-select/README.md)
-- [x] [lazy-table](./src/components/lazy-table/README.md)
-- [ ] modal
+- [x] [draggable](./src/components/draggable/README.md) 拖拽组件
+- [x] [oss-file](./src/components/form/upload/components/oss-file/README.md) oss 文件预览组件
+- [x] [lazy-select](./src/components/lazy-select/README.md) 异步加载下拉菜单组件
+- [x] [lazy-table](./src/components/lazy-table/README.md) 异步加载表格组件
+- [x] [modal](./src/components/modal/README.md) 弹窗组件
+- [ ] tooltip 文本省略提示组件
 
 ## TODO
 - [ ] 打包优化

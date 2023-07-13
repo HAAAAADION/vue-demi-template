@@ -398,6 +398,18 @@
               "description": "Boolean"
             }
           ]
+        },
+        {
+          "name": "bk-modal",
+          "description": "弹窗组件",
+          "doc-url": "",
+          "props": [
+            {
+              "name": "list",
+              "description": "全局弹窗注册列表",
+              "type": "Object"
+            }
+          ]
         }
       ]
     }

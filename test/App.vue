@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, getCurrentInstance } from 'vue'
 import axios from 'axios'
 import HSelect from '@/components/form/select/index.vue'
 import HInput from '@/components/form/input/index.vue'
@@ -9,6 +9,8 @@ import BkOssFile from '@/components/form/upload/components/oss-file/index.vue'
 import BkSwitch from '@/components/form/switch/index.vue'
 import BkLazySelect from '@/components/lazy-select/index.vue'
 import BkDraggable from '@/components/draggable/index.vue'
+import BkModal from '@/components/modal/index.vue'
+import modal from './components/modal.vue'
 
 BkUpload.configApiUrl = 'http://vebk.test.gateway.huitravel.com/resource/sts/assumerole'
 
@@ -79,6 +81,10 @@ const data = Object.keys(COUPON_TYPE.value).map(e => ({
   name: COUPON_TYPE_TEXT.value[COUPON_TYPE.value[e]]
 }))
 
+const globalModalList = ref({
+  test: () => import('./components/modal.vue')
+})
+
 const handlevalidate = async () => {
   await refList.value.validate()
 }
@@ -145,6 +151,23 @@ const objectSpanMethod = ({ row, column, rowIndex, columnIndex }) => {
       colspan: _col
     }
   }
+}
+
+const { proxy }: any = getCurrentInstance()
+
+const openModal = () => {
+  proxy.$modal.show(
+    'test',
+    {
+      name: 'xiaoming'
+    },
+    {
+      asd: () => {},
+      ok: () => {
+        console.log('ok')
+      }
+    }
+  )
 }
 </script>
 
@@ -244,5 +267,8 @@ const objectSpanMethod = ({ row, column, rowIndex, columnIndex }) => {
         </template>
       </bk-table-column>
     </bk-table>
+
+    <div @click="openModal">打开弹窗</div>
+    <bk-modal :list="globalModalList" />
   </div>
 </template>
