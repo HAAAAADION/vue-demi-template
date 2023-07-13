@@ -79,7 +79,7 @@ ElTable 用法无改变, 只需要用 `BkDraggable` 组件进行嵌套即可
 
 ## 批量拖拽
 
-以上各用法均支持批量拖拽, **批量拖拽需要基于用户选择后再进行拖拽**
+批量拖拽在 sortablejs 的 [Multiple](https://github.com/SortableJS/Sortable/wiki/Dragging-Multiple-Items-in-Sortable) 模块下进行封装, **批量拖拽需要基于用户选择后再进行拖拽**
 
 选中后会注入一个全局 class `.bk-draggable-multiple-selected`, 具体业务可根据自身选择设置选中样式
 
