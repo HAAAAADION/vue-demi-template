@@ -390,8 +390,12 @@
             },
             {
               "name": "options",
-              "description": "Object",
+              "description": "透传参数",
               "type": "Object"
+            },
+            {
+              "name": "multiple",
+              "description": "Boolean"
             }
           ]
         }
