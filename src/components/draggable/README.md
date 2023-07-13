@@ -87,6 +87,8 @@ ElTable 用法无改变, 只需要用 `BkDraggable` 组件进行嵌套即可
 - drag_: 用于关联多条数据是否同一个父类(非必传, 目前只用于 ElTable 表格的单元格合并场景)
 - dragid_: 标识每个数据主键, 用于拖拽后的数据重排
 
+![image](http://saas-files.oss-cn-shenzhen.aliyuncs.com/public/bk-draggable-multiple-example.gif)
+
 ### 结合 ElTable
 
 1. table 表格开启批量拖拽后需要设置 `row-class-name` 参数, `dragid_` 开头的类名
@@ -95,8 +97,6 @@ ElTable 用法无改变, 只需要用 `BkDraggable` 组件进行嵌套即可
 **基于以上第 2 点进行拖拽会导致表格在拖拽过程中出现错位的问题, 拖拽结束后会刷新列表解决这个问题**
 
 **由于 DOM 结构问题目前暂不解决拖拽过程的错位问题, 如无法接受可采用其他替代方案**
-
-![image](../../../public/bk-draggable-multiple-example.gif)
 
 ```vue
 <bk-draggable v-model="list" multiple row-key="age">
@@ -120,7 +120,7 @@ ElTable 用法无改变, 只需要用 `BkDraggable` 组件进行嵌套即可
 </bk-draggable>
 ```
 
-![image](../../../public/bk-draggable-multiple-table-example.gif)
+[例子](http://saas-files.oss-cn-shenzhen.aliyuncs.com/public/bk-draggable-multiple-table-example.gif)
 
 ### 自定义列表选择
 
