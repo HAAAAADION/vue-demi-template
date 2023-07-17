@@ -60,7 +60,7 @@ console.log('vue2')
 - [x] [lazy-select](./src/components/lazy-select/README.md) 异步加载下拉菜单组件
 - [x] [lazy-table](./src/components/lazy-table/README.md) 异步加载表格组件
 - [x] [modal](./src/components/modal/README.md) 弹窗组件
-- [ ] tooltip 文本省略提示组件
+- [x] [tooltip](./src/components/tooltip/README.md) 文本省略提示组件
 
 ## TODO
 - [ ] 打包优化
