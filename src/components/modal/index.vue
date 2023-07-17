@@ -1,5 +1,5 @@
 <template>
-  <fragment>
+  <div>
     <component
       v-bind="item.props"
       v-on="item.on"
@@ -8,7 +8,7 @@
       :is="item.component"
       visible
     />
-  </fragment>
+  </div>
 </template>
 
 <script lang="ts">
@@ -46,11 +46,11 @@ export default defineComponent({
 
       const isCommonKey = typeof key === 'string'
 
-      const el = isCommonKey ? (await props.list[key]()).default : key
+      const el = isCommonKey ? (await props.list?.[key]())?.default : key
       if (!el) return
 
       const cacheKey = isCommonKey ? customKey || key : Symbol('key')
-      const modalConfig = {
+      const modalConfig = <TypeModalChildren>{
         component: el,
         key: cacheKey,
         props: options,

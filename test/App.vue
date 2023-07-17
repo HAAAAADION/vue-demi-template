@@ -11,6 +11,7 @@ import BkLazySelect from '@/components/lazy-select/index.vue'
 import BkDraggable from '@/components/draggable/index.vue'
 import BkModal from '@/components/modal/index.vue'
 import modal from './components/modal.vue'
+import Tooltip from '@/components/tooltip/index.vue'
 
 BkUpload.configApiUrl = 'http://vebk.test.gateway.huitravel.com/resource/sts/assumerole'
 
@@ -270,5 +271,14 @@ const openModal = () => {
 
     <div @click="openModal">打开弹窗</div>
     <bk-modal :list="globalModalList" />
+
+    <div style="width: 100px">
+      <tooltip line="2" content="1">
+        <template #content>
+          <div>123</div>
+          <div>123</div>
+        </template>
+      </tooltip>
+    </div>
   </div>
 </template>
