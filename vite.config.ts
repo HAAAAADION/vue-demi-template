@@ -12,11 +12,17 @@ export default defineConfig(async ({ mode }) => {
   console.log('===vue 版本===: ', version)
 
   const plugins = [preprocessor]
+  const rollupInput = {
+    index: 'src/main.ts'
+  }
 
   if (isVue2) {
     plugins.push((await import('vite-plugin-vue2')).createVuePlugin({ jsx: true }))
   } else {
     plugins.push(vue(), vueJsx())
+    Object.assign(rollupInput, {
+      extra: 'src/extra.ts'
+    })
   }
 
   return {
@@ -40,8 +46,8 @@ export default defineConfig(async ({ mode }) => {
       lib: {
         entry: resolve(__dirname, 'src/main.ts'),
         name: 'component',
-        fileName: 'index'
-        // formats: ['es']
+        fileName: 'index',
+        formats: ['es']
       },
       rollupOptions: {
         external: [
@@ -56,15 +62,12 @@ export default defineConfig(async ({ mode }) => {
           '@element-plus/icons-vue',
           'sortablejs'
         ],
-        // input: {
-        //   main: 'src/main.ts'
-        //   // main2: 'src/main.ts'
-        // }
+        input: rollupInput,
         output: {
           // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
-          // entryFileNames: '[name].js',
+          entryFileNames: '[name].js',
           // // format: "es",
-          // inlineDynamicImports: false,
+          inlineDynamicImports: false,
           globals: {
             vue: 'Vue',
             'vue-demi': 'VueDemi'

@@ -14,13 +14,9 @@
 <script lang="ts">
 import { ref, defineComponent, getCurrentInstance, onMounted } from 'vue-demi'
 import { TypeModalChildren, TypeModalShowProps, TypeModalHideProps } from '@/types/modal.d'
-import Fragment from '@/components/fragment/index.vue'
 
 export default defineComponent({
   name: 'BkModal',
-  components: {
-    Fragment
-  },
   props: {
     list: {
       type: Object,

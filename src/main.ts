@@ -21,3 +21,7 @@ export {
   BkModal,
   BkTooltip
 }
+
+// #ifdef VUE2
+export * from './extra'
+// #endif
