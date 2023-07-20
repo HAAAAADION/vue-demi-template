@@ -63,8 +63,8 @@ console.log('vue2')
 - [x] [tooltip](./src/components/tooltip/README.md) 文本省略提示组件
 
 ## TODO
-- [ ] 打包优化
-- [x] 多入口打包
+- ~~打包优化~~
+- ~~多入口打包~~
 - [ ] 动态生成 ts 并关联发布
 - [x] 条件编译
 

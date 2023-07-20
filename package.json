@@ -1,19 +1,18 @@
 {
   "name": "@component/backend",
-  "version": "1.0.82",
+  "version": "1.0.86",
   "type": "module",
   "main": "./dist/vue2/index.umd.cjs",
   "module": "./dist/vue2/index.js",
   "web-types": "./web-types.json",
   "exports": {
     ".": {
-      "import": "./dist/vue2/index.js"
+      "import": "./dist/vue2/index.js",
+      "require": "./dist/vue2/index.umd.cjs"
     },
     "./vue3": {
-      "import": "./dist/vue3/index.js"
-    },
-    "./vue3/extra": {
-      "import": "./dist/vue3/extra.js"
+      "import": "./dist/vue3/index.js",
+      "require": "./dist/vue3/index.umd.cjs"
     },
     "./vue2/style.css": {
       "import": "./dist/vue2/style.css",
