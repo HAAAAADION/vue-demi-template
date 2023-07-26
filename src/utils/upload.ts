@@ -1,7 +1,12 @@
 import axios, { AxiosResponse } from 'axios'
 import OSS from 'ali-oss'
 import Compressor from 'compressorjs'
-import { TypeOssCacheConfig, TypeOssConfig, TypeUploadOptions } from '@/types/upload.d'
+import {
+  TypeOssCacheConfig,
+  TypeOssConfig,
+  TypeUploadOptions,
+  TypeUploadProcess
+} from '@/types/upload.d'
 import { isEmpty, isImg } from '@/utils'
 import BkUpload from '@/components/form/upload/index.vue'
 import { ElMessage } from '@/components/element'
@@ -75,11 +80,33 @@ export const initAliOss = async () => {
   })
 }
 
-export const filterOssURL = (url: string, process?: string) => {
+/**
+ * 构建阿里云图床请求参数
+ * @param   {Object} process  图床配置
+ * @return  {String}
+ * */
+export const buildProcess = (process?: TypeUploadProcess) => {
+  if (isEmpty(process)) return
+
+  const text = Object.keys(process)
+    .filter(e => !isEmpty(process?.[e]))
+    .map(
+      e =>
+        `${e},${Object.keys(process?.[e])
+          .map(v => `${v}_${process?.[e]?.[v]}`)
+          .join(',')}`
+    )
+    .join('/')
+
+  if (text) return `image/${text}`
+}
+
+export const filterOssURL = (url: string, process?: TypeUploadProcess) => {
   if (url.startsWith('http')) return url
 
   let newUrl = `https://${ossCacheConfig.bucket}.${ossCacheConfig.region}.aliyuncs.com/${url}`
-  if (process) newUrl += `?x-oss-process=${process}`
+  const processText = buildProcess(process)
+  if (processText) newUrl += `?x-oss-process=${processText}`
 
   return newUrl
 }
@@ -91,13 +118,13 @@ export const filterOssURL = (url: string, process?: string) => {
  * @return  {Promise<String>}
  * */
 export const formatOssUrl = async (url: string, options = {}) => {
-  const { acl, process } = options as { acl?: boolean; process?: string }
+  const { acl, process } = options as { acl?: boolean; process?: TypeUploadProcess }
 
   if (acl) {
     const ins = await initAliOss()
     return ins.signatureUrl(url, {
       expires: 3600,
-      process
+      process: buildProcess(process)
     })
   } else {
     if (isEmpty(ossCacheConfig)) await getOssConfig()

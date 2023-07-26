@@ -10,7 +10,7 @@
         :file-list="modelValue"
         :action="action"
         :class="styles.img"
-        process="image/resize,w_300"
+        :resize="{ w: 300 }"
         @edit="edit(index)"
         @remove="remove(index)"
       />

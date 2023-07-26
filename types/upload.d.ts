@@ -35,3 +35,19 @@ export interface UploadRequestOptions {
   headers: Headers | Record<string, string | number | null | undefined>
   [key: string]: any
 }
+
+// ali oss 图床配置-图片缩放
+export interface TypeUploadProcessResize {
+  m?: string
+  w?: string
+  h?: string
+  l?: string
+  s?: string
+  limit?: string
+  color?: string
+}
+
+// ali oss 图床配置
+export interface TypeUploadProcess {
+  resize?: TypeUploadProcessResize
+}

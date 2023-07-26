@@ -37,6 +37,7 @@ import { ref, toRefs, reactive, computed, defineComponent, PropType } from 'vue-
 import { ElImage } from '@/components/element'
 import { isImg, isVideo, messageLoading } from '@/utils'
 import { formatOssUrl } from '@/utils/upload'
+import { TypeUploadProcessResize, TypeUploadProcess } from '@/types/upload.d'
 import { TypeOssFileState } from '@/types/oss-file.d'
 import Icon from '@/components/icon/index.vue'
 import styles from './index.module.scss'
@@ -72,10 +73,11 @@ export default defineComponent({
       readonly: true,
       default: () => []
     },
-    // 图床配置
-    process: {
-      type: String,
-      default: undefined
+    // TODO 图床配置-图片水印...
+    // 图床配置-图片缩放
+    resize: {
+      type: Object as PropType<TypeUploadProcessResize>,
+      default: () => ({})
     },
     fit: {
       type: String as PropType<'' | 'fill' | 'none' | 'contain' | 'cover' | 'scale-down'>,
@@ -132,7 +134,7 @@ export default defineComponent({
         .map(e => state.actionMap[e])
     })
 
-    const formatPath = async (url?: string, process?: string) => {
+    const formatPath = async (url?: string, process?: TypeUploadProcess) => {
       return formatOssUrl((url || props.url) as string, { acl: props.acl, process })
     }
 
@@ -177,7 +179,7 @@ export default defineComponent({
 
     // 初始化
     ;(async () => {
-      state.path = await formatPath(props.url, props.process)
+      state.path = await formatPath(props.url, { resize: props.resize })
     })()
 
     return {
