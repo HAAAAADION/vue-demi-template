@@ -74,6 +74,7 @@ export default defineComponent({
       default: () => []
     },
     // TODO 图床配置-图片水印...
+    // ali oss 图床配置: https://help.aliyun.com/document_detail/44688.html?spm=a2c4g.44693.0.0.7f6b2793SXGcNn
     // 图床配置-图片缩放
     resize: {
       type: Object as PropType<TypeUploadProcessResize>,
