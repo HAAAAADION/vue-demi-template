@@ -75,10 +75,14 @@ export const initAliOss = async () => {
   })
 }
 
-export const filterOssURL = (url: string) =>
-  url.startsWith('http')
-    ? url
-    : `https://${ossCacheConfig.bucket}.${ossCacheConfig.region}.aliyuncs.com/${url}`
+export const filterOssURL = (url: string, process?: string) => {
+  if (url.startsWith('http')) return url
+
+  let newUrl = `https://${ossCacheConfig.bucket}.${ossCacheConfig.region}.aliyuncs.com/${url}`
+  if (process) newUrl += `?x-oss-process=${process}`
+
+  return newUrl
+}
 
 /**
  * 鉴权阿里云文件地址
@@ -97,7 +101,7 @@ export const formatOssUrl = async (url: string, options = {}) => {
     })
   } else {
     if (isEmpty(ossCacheConfig)) await getOssConfig()
-    return filterOssURL(url)
+    return filterOssURL(url, process)
   }
 }
 
