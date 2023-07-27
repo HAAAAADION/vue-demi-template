@@ -36,7 +36,7 @@ export default defineComponent({
   emits: ['update:modelValue', 'change'],
   props: {
     modelValue: {
-      type: [Number, String, Array],
+      type: [Number, String, Array, Boolean],
       default: undefined
     },
     data: {
