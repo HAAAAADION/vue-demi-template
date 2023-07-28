@@ -28,7 +28,7 @@ export default defineComponent({
 
     // #ifdef VUE3
     ;(async () => {
-      const { ZoomIn, Download, Edit, Delete, VideoPlay, Document, Plus } = await import(
+      const { ZoomIn, Download, Edit, Delete, Document, Plus } = await import(
         '@element-plus/icons-vue'
       )
       iconList.value = {
@@ -36,7 +36,6 @@ export default defineComponent({
         Download,
         Edit,
         Delete,
-        VideoPlay,
         Document,
         Plus
       }
@@ -48,7 +47,6 @@ export default defineComponent({
       Download: 'el-icon-download',
       Edit: 'el-icon-edit-outline',
       Delete: 'el-icon-delete',
-      VideoPlay: 'el-icon-video-play',
       Document: 'el-icon-document',
       Plus: 'el-icon-plus'
     }

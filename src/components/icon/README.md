@@ -12,7 +12,7 @@
 ```javascript
  // #ifdef VUE3
     ;(async () => {
-      const { ZoomIn, Download, Edit, Delete, VideoPlay, Document, Plus } = await import(
+      const { ZoomIn, Download, Edit, Delete, Document, Plus } = await import(
         '@element-plus/icons-vue'
       )
       iconList.value = {

@@ -7,7 +7,7 @@ import {
   TypeUploadOptions,
   TypeUploadProcess
 } from '@/types/upload.d'
-import { isEmpty, isImg } from '@/utils'
+import { isEmpty, isImg, isImgGif } from '@/utils'
 import BkUpload from '@/components/form/upload/index.vue'
 import { ElMessage } from '@/components/element'
 
@@ -105,7 +105,7 @@ export const filterOssURL = (url: string, process?: TypeUploadProcess) => {
   if (url.startsWith('http')) return url
 
   let newUrl = `https://${ossCacheConfig.bucket}.${ossCacheConfig.region}.aliyuncs.com/${url}`
-  const processText = buildProcess(process)
+  const processText = isImg(url) && buildProcess(process)
   if (processText) newUrl += `?x-oss-process=${processText}`
 
   return newUrl
@@ -124,7 +124,7 @@ export const formatOssUrl = async (url: string, options = {}) => {
     const ins = await initAliOss()
     return ins.signatureUrl(url, {
       expires: 3600,
-      process: buildProcess(process)
+      process: isImg(url) ? buildProcess(process) : undefined
     })
   } else {
     if (isEmpty(ossCacheConfig)) await getOssConfig()
@@ -181,7 +181,7 @@ export const upload = async (file: File, options = {} as TypeUploadOptions) => {
 
   try {
     const oss = await initAliOss()
-    const compressFile = isImg(file.type) ? await compressImg(file) : file
+    const compressFile = isImg(file.type) && !isImgGif(file.type) ? await compressImg(file) : file
     const fileName = createFileName(compressFile, service)
 
     return oss.put(fileName, compressFile, { headers })

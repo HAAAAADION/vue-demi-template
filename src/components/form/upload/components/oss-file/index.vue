@@ -8,7 +8,7 @@
       :preview-src-list="previewList"
       :initial-index="previewIndex"
       :fit="fit"
-      :class="styles.image"
+      :class="styles.block"
     >
       <template #error>
         <div class="el-image__error">
@@ -16,9 +16,10 @@
         </div>
       </template>
     </el-image>
+    <video v-else-if="isUrlVideo" :src="path" :style="imgStyle" :class="styles.block" />
     <!--文件(非图片)-->
-    <div v-else :class="styles.doc">
-      <icon :name="isUrlVideo ? 'VideoPlay' : 'Document'" />
+    <div v-else :style="imgStyle" :class="styles.doc">
+      <icon name="Document" />
     </div>
     <div v-if="actionList.length" :class="styles.action">
       <icon

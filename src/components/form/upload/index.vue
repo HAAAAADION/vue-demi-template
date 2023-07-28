@@ -1,6 +1,6 @@
 <template>
-  <div :class="{ [styles.upload]: true, [styles.disabled]: loading }">
-    <div :style="{ height: imgStyle.height }" :class="styles.imgs">
+  <div :class="{ [styles.upload]: true, [styles.disabled]: loading }" :style="containerHeight">
+    <div :style="containerHeight" :class="styles.imgs">
       <oss-file
         v-for="(url, index) in modelValue"
         :key="url"
@@ -24,6 +24,7 @@
       :accept="acceptText"
       :class="styles.uploader"
       :disabled="loading"
+      :style="{ height: imgStyle.height }"
       action=""
       ref="uploadInput"
       key="upload"
@@ -136,6 +137,8 @@ export default defineComponent({
       return data
     })
 
+    const containerHeight = computed(() => ({ height: props.imgStyle.height }))
+
     // 上传额外请求头
     const headers = computed(() => {
       const result = {} as Record<string, any>
@@ -239,6 +242,7 @@ export default defineComponent({
       isMultiple,
       loading,
       iconStyle,
+      containerHeight,
       headers,
       acceptText,
       action,

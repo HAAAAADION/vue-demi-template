@@ -1,22 +1,25 @@
 import { ElMessage } from '@/components/element'
 
 /**
- * 根据后缀名判断链接是否图片
+ * 根据后缀或类型判断链接是否图片
  * @param   {String}  url
  * @return  {Boolean}
  * */
-export const isImg = (url: any) => {
-  return /\.(jpg|jpeg|png|gif|bmp|webp|svg)$/.test(url.toLowerCase())
-}
+export const isImg = (url: any) => /[\/\.](jpg|jpeg|png|gif|bmp|webp|svg)$/.test(url.toLowerCase())
+
+/**
+ * 根据后缀名判断链接是否 gif
+ * @param   {String}  url
+ * @return  {Boolean}
+ * */
+export const isImgGif = (url: any) => /[\/\.]gif$/.test(url.toLowerCase())
 
 /**
  * 根据后缀名判断链接是视频
  * @param   {String}  url
  * @return  {Boolean}
  * */
-export const isVideo = (url: any) => {
-  return /\.(mp4|webm|ogg)$/.test(url.toLowerCase())
-}
+export const isVideo = (url: any) => /\.(mp4|webm|ogg)$/.test(url.toLowerCase())
 
 /**
  * 判断是否函数
