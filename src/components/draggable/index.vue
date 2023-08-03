@@ -21,7 +21,7 @@ import useMultiple from './hook/multiple'
 
 export default defineComponent({
   name: 'BkDraggable',
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'change'],
   props: {
     modelValue: {
       type: Array,
@@ -49,6 +49,11 @@ export default defineComponent({
 
     const { getMultipleOptions, clearMultipleSelected, initMultipleId } = useMultiple()
 
+    const update = (list: Record<string, any>[]) => {
+      emit('update:modelValue', list)
+      emit('change', list)
+    }
+
     /**
      * 单行拖拽回调
      * */
@@ -57,7 +62,7 @@ export default defineComponent({
 
       const currRow = list.splice(oldIndex, 1)[0]
       list.splice(newIndex, 0, currRow)
-      emit('update:modelValue', list)
+      update(list)
     }
 
     /**
@@ -76,7 +81,7 @@ export default defineComponent({
       // 重新排序刷新列表
       // insSort.value.sort(list.value.map(e => e.age))
 
-      emit('update:modelValue', newList)
+      update(newList)
     }
 
     const buildMultipleConfig = (el: HTMLElement): Sortable.Options => {

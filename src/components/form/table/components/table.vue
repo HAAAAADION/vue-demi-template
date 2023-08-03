@@ -100,13 +100,10 @@ export default defineComponent({
     // 父组件
     const Parent = computed(() => (isPureList.value ? BkFragment : ElForm))
 
-    const validate = (key?: string | string[], index?: number) => {
-      validateField(refForm, key, index)
-    }
+    const validate = (key?: string | string[], index?: number) => validateField(refForm, key, index)
 
-    const clearValidate = (key?: string | string[], index?: number) => {
+    const clearValidate = (key?: string | string[], index?: number) =>
       clearListValidate(refForm, key, index)
-    }
 
     const refresh = (query?: Record<string, any>) => {
       if (!refLazyTable.value) return

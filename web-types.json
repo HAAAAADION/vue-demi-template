@@ -385,13 +385,13 @@
             {
               "name": "rowKey",
               "description": "渲染主键",
-              "type": "String",
+              "type": "string",
               "default": "id"
             },
             {
               "name": "options",
               "description": "透传参数",
-              "type": "Object"
+              "type": "object"
             },
             {
               "name": "multiple",
@@ -407,7 +407,35 @@
             {
               "name": "list",
               "description": "全局弹窗注册列表",
-              "type": "Object"
+              "type": "object"
+            }
+          ]
+        },
+        {
+          "name": "bk-tooltip",
+          "description": "文案提示组件",
+          "doc-url": "",
+          "props": [
+            {
+              "name": "content",
+              "description": "文案",
+              "type": "string"
+            },
+            {
+              "name": "line",
+              "description": "溢出行数, 默认不处理溢出",
+              "type": "string | number",
+              "default": "0"
+            },
+            {
+              "name": "always",
+              "description": "是否总是展示提示",
+              "type": "boolean"
+            },
+            {
+              "name": "width",
+              "description": "自定义溢出宽度",
+              "type": "string | number"
             }
           ]
         }

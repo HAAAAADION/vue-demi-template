@@ -42,18 +42,23 @@ export default defineComponent({
     always: {
       type: Boolean,
       default: false
+    },
+    width: {
+      type: [String, Number],
+      default: undefined
     }
   },
   setup(props, { attrs, slots }): any {
-    const refContent = ref(null)
-    const disabled = ref(undefined)
+    const refContent = ref<any>(null)
+    const disabled = ref<boolean | undefined>(undefined)
 
     // 是否多行溢出隐藏
     const isMultiple = computed(() => +props.line > 1)
     // 动态样式
     const style = computed(() => {
-      const result = {}
+      const result = {} as Record<string, any>
 
+      if (props.width) result.width = `${props.width}px`
       if (isMultiple.value) result['-webkit-line-clamp'] = props.line
 
       return result
@@ -63,15 +68,13 @@ export default defineComponent({
      * 检查是否需要关闭提示
      * */
     const checkDisabled = () => {
-      if (disabled.value !== undefined || props.always || slots.default) return
+      if (disabled.value !== undefined || props.always) return
 
       const { parentNode, offsetWidth, offsetHeight } = refContent.value
 
       disabled.value = isMultiple.value
         ? parentNode.offsetHeight >= offsetHeight
         : parentNode.offsetWidth >= offsetWidth
-
-      console.log('disabled.value: ', disabled.value)
     }
 
     return {
