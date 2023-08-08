@@ -15,7 +15,7 @@
       <component
         v-bind="attrs"
         :is="component"
-        :modelValue="modelValue"
+        :model-value="modelValue"
         @input="listeners.input"
         @change="listeners.change"
         @blur="listeners.blur"

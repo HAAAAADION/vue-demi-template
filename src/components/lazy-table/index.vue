@@ -4,12 +4,12 @@
       <slot />
     </el-table>
     <el-pagination
-      v-if="showPagination"
+      v-if="isShowPagination"
       :current-page="pagination.pageIndex"
       :page-size="pagination.pageSize"
       :page-sizes="pageSizes"
       :total="pagination.total"
-      layout="total, sizes, prev, pager, next, jumper, ->"
+      :layout="layout"
       :class="styles.pagination"
       @current-change="pageChange"
       @size-change="sizeChange"
@@ -40,6 +40,10 @@ export default defineComponent({
       type: Number,
       default: 10
     },
+    layout: {
+      type: String,
+      default: 'total, sizes, prev, pager, next, jumper, ->'
+    },
     fetchApi: {
       type: Function as PropType<TypeTableFetchApi>,
       required: true
@@ -61,10 +65,11 @@ export default defineComponent({
         total: 0
       },
       query: {},
-      isCache: false
+      isCache: false,
+      isShowPagination: props.showPagination
     })
 
-    const { list, pagination, loading } = toRefs(state)
+    const { list, pagination, loading, isShowPagination } = toRefs(state)
 
     const pageSizes = computed(() => {
       const defaultSize = [10, 20, 30, 40, 50, 100]
@@ -90,6 +95,7 @@ export default defineComponent({
         const { data = [] as Record<string, any>[], pageCount, pageIndex, total } = res || {}
 
         state.list = data
+        if (props.showPagination) state.isShowPagination = !!pageIndex
 
         Object.assign(state.pagination, {
           pageCount,
@@ -129,6 +135,7 @@ export default defineComponent({
       list,
       pagination,
       loading,
+      isShowPagination,
       pageChange,
       sizeChange,
       refresh,

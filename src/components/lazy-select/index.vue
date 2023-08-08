@@ -11,7 +11,7 @@
       v-bind="attrs"
       remote
       filterable
-      :value="modelValue"
+      :model-value="modelValue"
       :clearable="clearable"
       :multiple="isMultiple"
       :remote-method="onSearch"
@@ -249,16 +249,10 @@ export default defineComponent({
     }
 
     const init = () => {
-      if (
-        !isEmpty(props.customList) &&
-        Array.isArray(props.customList) &&
-        !~state.list.findIndex(e => e.id === props.modelValue)
-      ) {
+      if (Array.isArray(props.customList) && props.customList?.length && !state.list.length) {
         state.list = [...props.customList]
       } else {
         if (isEmpty(props.modelValue) || state.list.length) return
-
-        // const size = this.isMultiple ? this.value.length : 1
         const ids = isMultiple.value ? props.modelValue.join(',') : props.modelValue
 
         loadData({

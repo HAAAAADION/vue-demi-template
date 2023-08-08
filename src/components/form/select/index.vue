@@ -4,7 +4,7 @@
     v-else
     v-bind="attrs"
     :is="parentComponent"
-    :modelValue="modelValue"
+    :model-value="modelValue"
     @input="handleInput"
     @change="handleChange"
   >
@@ -28,7 +28,7 @@
 <script lang="ts">
 import { toRefs, defineComponent, computed, PropType } from 'vue-demi'
 import { ElSelect, ElRadio, ElRadioGroup, ElOption } from '@/components/element'
-import { isFunction } from '@/utils'
+import { isEmpty, isFunction } from '@/utils'
 import { TypeSelectStatus, TypeSelectData } from '@/types/select.d'
 
 export default defineComponent({
@@ -98,8 +98,8 @@ export default defineComponent({
     const selectData = computed<TypeSelectData>(() => {
       if (data.value !== undefined) {
         return data.value!.map(e => ({
-          code: e[valueKey.value] || e.code,
-          name: e[labelKey.value] || e.name
+          code: isEmpty(e[valueKey.value]) ? e.code : e[valueKey.value],
+          name: isEmpty(e[labelKey.value]) ? e.name : e[labelKey.value]
         }))
       }
 
@@ -123,9 +123,9 @@ export default defineComponent({
     if (readonly.value) {
       const readValue = computed(() => {
         const cur = selectData.value.find(
-          (e: any) => (e[valueKey.value] || e.code) === modelValue.value
+          (e: any) => (isEmpty(e[valueKey.value]) ? e.code : e[valueKey.value]) === modelValue.value
         ) as any
-        return cur[labelKey.value] || cur.name
+        return isEmpty(cur[labelKey.value]) ? cur.name : cur[labelKey.value]
       })
 
       return {
