@@ -1,15 +1,16 @@
 <template>
   <!--#ifdef VUE3-->
-  <el-icon @click="handleClick"><component :is="iconList[name]" /></el-icon>
+  <el-icon @click="handleClick"><component :is="icon" /></el-icon>
   <!--#endif-->
   <!--#ifdef VUE2-->
-  <i :class="iconList[name]" @click="handleClick" />
+  <i :class="icon" @click="handleClick" />
   <!--#endif-->
 </template>
 
 <script lang="ts">
-import { ref, defineComponent } from 'vue-demi'
+import { computed, defineComponent } from 'vue-demi'
 import { ElIcon } from '@/components/element'
+import icons from './list'
 
 export default defineComponent({
   name: 'BkIcon',
@@ -24,41 +25,13 @@ export default defineComponent({
     }
   },
   setup(props, { attrs, emit }): any {
-    const iconList = ref<Record<string, any>>({})
+    const icon = computed(() => icons[props.name])
 
-    // #ifdef VUE3
-    ;(async () => {
-      const { ZoomIn, Download, Edit, Delete, Document, Plus } = await import(
-        '@element-plus/icons-vue'
-      )
-      iconList.value = {
-        ZoomIn,
-        Download,
-        Edit,
-        Delete,
-        Document,
-        Plus
-      }
-    })()
-    // #endif
-    // #ifdef VUE2
-    iconList.value = {
-      ZoomIn: 'el-icon-zoom-in',
-      Download: 'el-icon-download',
-      Edit: 'el-icon-edit-outline',
-      Delete: 'el-icon-delete',
-      Document: 'el-icon-document',
-      Plus: 'el-icon-plus'
-    }
-    // #endif
-
-    const handleClick = () => {
-      emit('click')
-    }
+    const handleClick = () => emit('click')
 
     return {
       attrs,
-      iconList,
+      icon,
       handleClick
     }
   }

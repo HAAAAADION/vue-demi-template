@@ -219,44 +219,45 @@ const openModal = () => {
       :file-list="previewList"
     />
 
-    <bk-draggable v-model="list" multiple row-key="age">
-      <!--      <template #item="{ item }">-->
-      <!--        <div :key="item.age" :class="`dragid_${item.age}`">-->
-      <!--          {{ item }}-->
-      <!--        </div>-->
-      <!--      </template>-->
-      <!--      <div v-for="item in list" :key="item.age" :class="`dragid_${item.age}`">-->
-      <!--        {{ item }}-->
-      <!--      </div>-->
-      <bk-table
-        ref="refList"
-        stripe
-        border
-        :data="list"
-        :rules="rules"
-        row-key="age"
-        :show-pagination="false"
-        :row-class-name="({ row }) => `drag_${row.name} dragid_${row.age}`"
-        :span-method="objectSpanMethod"
-      >
-        <bk-table-column prop="name" label="国家">
-          <template #default="scope">
-            <el-input v-model="scope.row.name" class="dragaaa" />
-          </template>
-        </bk-table-column>
-        <bk-table-column prop="age" label="城市">
-          <template #default="scope">
-            <el-input v-model="scope.row.age" />
-          </template>
-        </bk-table-column>
-      </bk-table>
-    </bk-draggable>
+    <bk-table
+      ref="refList"
+      stripe
+      border
+      drag="multiple"
+      :data="list"
+      :rules="rules"
+      row-key="age"
+      :show-pagination="false"
+      :row-class-name="({ row }) => `drag_${row.name} dragid_${row.age}`"
+      :span-method="objectSpanMethod"
+    >
+      <bk-table-column prop="name" label="国家">
+        <template #default="scope">
+          <el-input v-model="scope.row.name" class="dragaaa" />
+        </template>
+      </bk-table-column>
+      <bk-table-column prop="age" label="城市">
+        <template #default="scope">
+          <el-input v-model="scope.row.age" />
+        </template>
+      </bk-table-column>
+    </bk-table>
 
     <div @click="handlevalidate">校验表单</div>
     <div @click="handleclear">清除表单校验</div>
     <div @click="handlerefresh">刷新</div>
     <div @click="handleCreate">增加一行</div>
-    <bk-table ref="refList" stripe border :data="list" :rules="rules" :show-pagination="false">
+    <bk-table
+      ref="refList"
+      :data="list"
+      stripe
+      border
+      drag
+      height="300"
+      layout="total, sizes, prev, pager, next, ->"
+      row-key="age"
+      :show-pagination="true"
+    >
       <bk-table-column prop="name" label="国家">
         <template #default="scope">
           <el-input v-model="scope.row.name" />

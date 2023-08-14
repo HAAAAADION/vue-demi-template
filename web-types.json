@@ -194,6 +194,12 @@
               "description": "自定义分页长度",
               "type": "number",
               "default": "10"
+            },
+            {
+              "name": "drag",
+              "description": "开启拖拽",
+              "type": "boolean | 'multiple'",
+              "default": "false"
             }
           ]
         },
@@ -251,6 +257,12 @@
               "name": "size",
               "description": "文件上传容量最大限制, 单位 kb",
               "type": "number"
+            },
+            {
+              "name": "drag",
+              "description": "开启拖拽",
+              "type": "boolean",
+              "default": "true"
             }
           ]
         },

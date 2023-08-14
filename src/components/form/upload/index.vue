@@ -1,23 +1,25 @@
 <template>
   <div :class="{ [styles.upload]: true, [styles.disabled]: loading }" :style="containerHeight">
     <div :style="containerHeight" :class="styles.imgs">
-      <oss-file
-        v-for="(url, index) in modelValue"
-        :key="url"
-        :url="url"
-        :acl="acl"
-        :img-style="imgStyle"
-        :file-list="modelValue"
-        :action="action"
-        :class="styles.img"
-        :resize="{ w: 300 }"
-        @edit="edit(index)"
-        @remove="remove(index)"
-      />
+      <bk-draggable v-model="imgs" :disabled="!drag" @change="update">
+        <oss-file
+          v-for="(url, index) in imgs"
+          :key="url"
+          :url="url"
+          :acl="acl"
+          :img-style="imgStyle"
+          :file-list="imgs"
+          :action="action"
+          :class="styles.img"
+          :resize="{ w: 300 }"
+          @edit="edit(index)"
+          @remove="remove(index)"
+        />
+      </bk-draggable>
     </div>
     <el-upload
       v-if="!readonly"
-      v-show="!modelValue.length || isMultiple"
+      v-show="!imgs.length || isMultiple"
       :multiple="isMultiple"
       :show-file-list="false"
       :http-request="beforeUpload"
@@ -43,6 +45,7 @@ import {
   toRefs,
   reactive,
   computed,
+  watch,
   defineComponent,
   getCurrentInstance,
   PropType,
@@ -54,6 +57,7 @@ import { isEmpty } from '@/utils'
 import { ElUpload, ElMessage } from '@/components/element'
 import Icon from '@/components/icon/index.vue'
 import OssFile from './components/oss-file/index.vue'
+import BkDraggable from '@/components/draggable/index.vue'
 import styles from './index.module.scss'
 
 export default defineComponent({
@@ -61,7 +65,8 @@ export default defineComponent({
   components: {
     ElUpload,
     OssFile,
-    Icon
+    Icon,
+    BkDraggable
   },
   emits: ['update:modelValue', 'change'],
   props: {
@@ -102,14 +107,14 @@ export default defineComponent({
       type: [String, Array],
       default: undefined
     },
+    size: {
+      type: Number,
+      default: undefined
+    },
     // 是否开启拖拽
     drag: {
       type: Boolean,
       default: true
-    },
-    size: {
-      type: Number,
-      default: undefined
     }
   },
   setup(props, { emit }): any {
@@ -119,11 +124,12 @@ export default defineComponent({
     const refUploadHandler = ref<any>(null)
 
     const state = reactive({
+      imgs: props.modelValue,
       index: undefined as number | undefined,
       loading: false
     })
 
-    const { loading } = toRefs(state)
+    const { imgs, loading } = toRefs(state)
 
     // 是否上传多张
     const isMultiple = computed(() => +props.max > 1)
@@ -179,7 +185,7 @@ export default defineComponent({
           headers: headers.value
         })
 
-        const list = [...props.modelValue]
+        const list = [...state.imgs]
 
         if (!isEmpty(state.index)) {
           // 修改
@@ -198,7 +204,7 @@ export default defineComponent({
     }
 
     const beforeUpload = (uploadFile: UploadRequestOptions) => {
-      if (props.modelValue.length >= +props.max && isMultiple.value && state.index === undefined) {
+      if (state.imgs.length >= +props.max && isMultiple.value && state.index === undefined) {
         ElMessage.error(`最多上传${props.max}个资源文件`)
         return
       }
@@ -231,22 +237,31 @@ export default defineComponent({
     }
 
     const remove = (index: number) => {
-      const list = [...props.modelValue]
+      const list = [...state.imgs]
       list.splice(index, 1)
       update(list)
     }
+
+    watch(
+      () => props.modelValue,
+      () => {
+        state.imgs = props.modelValue as string[]
+      }
+    )
 
     return {
       styles,
       refUploadHandler,
       isMultiple,
       loading,
+      imgs,
       iconStyle,
       containerHeight,
       headers,
       acceptText,
       action,
       beforeUpload,
+      update,
       edit,
       remove
     }

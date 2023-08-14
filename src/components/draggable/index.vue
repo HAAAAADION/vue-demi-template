@@ -39,6 +39,11 @@ export default defineComponent({
     multiple: {
       type: Boolean,
       default: false
+    },
+    // 是否禁用拖拽
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   setup(props, { emit, slots }): any {
@@ -58,7 +63,9 @@ export default defineComponent({
      * 单行拖拽回调
      * */
     const handleSingleDrag = ({ newIndex, oldIndex }: Sortable.SortableEvent) => {
-      const list = JSON.parse(JSON.stringify(props.modelValue))
+      if (oldIndex === undefined || newIndex === undefined) return
+
+      const list = [...props.modelValue]
 
       const currRow = list.splice(oldIndex, 1)[0]
       list.splice(newIndex, 0, currRow)
@@ -127,6 +134,8 @@ export default defineComponent({
     )
 
     onMounted(() => {
+      if (props.disabled) return
+
       setTimeout(() => {
         const elTable = refDrag.value.querySelector('.el-table__body-wrapper tbody')
         if (elTable) rowDrop(elTable)

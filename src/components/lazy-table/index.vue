@@ -1,6 +1,23 @@
 <template>
-  <bk-fragment>
-    <el-table v-loading="loading" v-bind="attrs" :data="list">
+  <bk-draggable
+    v-model="list"
+    :multiple="drag === 'multiple'"
+    :disabled="!drag"
+    :row-key="rowKey"
+    :options="{ handle: '.sort-handler' }"
+    @change="handleDrag"
+  >
+    <el-table v-loading="loading" v-bind="attrs" :data="list" :row-key="rowKey">
+      <el-table-column
+        v-if="drag"
+        label="排序"
+        prop="index"
+        width="60"
+        align="center"
+        class-name="sort-handler"
+      >
+        <bk-icon name="Sort" />
+      </el-table-column>
       <slot />
     </el-table>
     <el-pagination
@@ -14,22 +31,26 @@
       @current-change="pageChange"
       @size-change="sizeChange"
     />
-  </bk-fragment>
+  </bk-draggable>
 </template>
 
 <script lang="ts">
 import { reactive, toRefs, computed, defineComponent, PropType } from 'vue-demi'
 import { TypeTableFetchApi } from '@/types/table'
-import { ElTable, ElPagination } from '@/components/element'
-import BkFragment from '@/components/fragment/index.vue'
+import { ElTable, ElTableColumn, ElPagination } from '@/components/element'
+import BkDraggable from '@/components/draggable/index.vue'
+import BkIcon from '@/components/icon/index.vue'
 import styles from './index.module.scss'
 
 export default defineComponent({
   name: 'BkLazyTable',
+  emits: ['drag'],
   components: {
     ElTable,
+    ElTableColumn,
     ElPagination,
-    BkFragment
+    BkDraggable,
+    BkIcon
   },
   props: {
     showPagination: {
@@ -52,9 +73,18 @@ export default defineComponent({
     autoFetch: {
       type: Boolean,
       default: true
+    },
+    rowKey: {
+      type: String,
+      default: undefined
+    },
+    // 是否开启拖拽, boolean: 单行拖拽, 'multiple': 多行拖拽
+    drag: {
+      type: [Boolean, String],
+      default: false
     }
   },
-  setup(props, { attrs, slots, expose }): any {
+  setup(props, { attrs, slots, emit, expose }): any {
     const state = reactive({
       loading: false,
       list: [] as Record<string, any>[],
@@ -66,7 +96,7 @@ export default defineComponent({
       },
       query: {},
       isCache: false,
-      isShowPagination: props.showPagination
+      isShowPagination: props.showPagination && !props.drag
     })
 
     const { list, pagination, loading, isShowPagination } = toRefs(state)
@@ -95,7 +125,7 @@ export default defineComponent({
         const { data = [] as Record<string, any>[], pageCount, pageIndex, total } = res || {}
 
         state.list = data
-        if (props.showPagination) state.isShowPagination = !!pageIndex
+        if (props.showPagination && !props.drag) state.isShowPagination = !!pageIndex
 
         Object.assign(state.pagination, {
           pageCount,
@@ -123,6 +153,10 @@ export default defineComponent({
       pageChange(1)
     }
 
+    const handleDrag = list => {
+      emit('drag', list)
+    }
+
     if (props.autoFetch) fetchData()
 
     expose({ refresh, refreshCurrentPage: fetchData })
@@ -139,7 +173,8 @@ export default defineComponent({
       pageChange,
       sizeChange,
       refresh,
-      refreshCurrentPage: fetchData
+      refreshCurrentPage: fetchData,
+      handleDrag
     }
   }
 })

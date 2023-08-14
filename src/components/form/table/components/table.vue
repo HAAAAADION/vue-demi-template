@@ -7,6 +7,7 @@
       :show-pagination="showPagination"
       :page-size="pageSize"
       :auto-fetch="autoFetch"
+      @drag="drag"
     >
       <slot />
     </bk-lazy-table>
@@ -34,6 +35,7 @@ import styles from './index.module.scss'
 
 export default defineComponent({
   name: 'BkFormTable',
+  emits: ['drag'],
   components: {
     ElForm,
     BkLazyTable,
@@ -73,7 +75,7 @@ export default defineComponent({
       default: 10
     }
   },
-  setup(props, { attrs, slots, expose }): any {
+  setup(props, { attrs, slots, emit, expose }): any {
     const { getListRules, validateField, clearListValidate } = useValidator()
 
     const refForm = ref<any>(null)
@@ -144,6 +146,10 @@ export default defineComponent({
       }
     }
 
+    const drag = list => {
+      emit('drag', list)
+    }
+
     watch(
       () => props.data,
       () => {
@@ -169,7 +175,8 @@ export default defineComponent({
       refresh,
       refreshCurrentPage,
       validate,
-      clearValidate
+      clearValidate,
+      drag
     }
   }
 })

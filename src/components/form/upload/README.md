@@ -66,3 +66,10 @@ https://${prefix}.aliyuncs.com/${service}/${url}
 ```vue
 <bk-upload :size="10" />
 ```
+
+## drag
+> boolean
+
+是否开启拖拽, 默认为 true
+
+开启拖拽模式后, 会导致原有的分页效果失效, 需要注意使用

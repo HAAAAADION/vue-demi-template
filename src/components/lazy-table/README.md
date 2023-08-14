@@ -61,7 +61,16 @@ methods: {
 
 如 pageSize="11", 值为: [10, 11, 20, 30, 40, 50, 100]
 
-## 暴露方法
+## drag
+> boolean | 'multiple'
+
+是否开始拖拽
+
+- ture | false 为一般的单行拖拽
+- multiple 为批量拖拽模式, 使用前请先了解[多行拖拽模式](../draggable/README.md)
+
+
+## expose
 
 ### refresh
 
@@ -80,3 +89,9 @@ ${ref}.refresh(params)
 ```javascript
 ${ref}.refreshCurrentPage()
 ```
+
+## emits
+
+### @drag
+
+拖拽完成后数据变化回调
