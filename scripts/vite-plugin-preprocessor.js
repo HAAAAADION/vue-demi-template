@@ -48,6 +48,11 @@ export const preprocessor = pluginPreprocessor([
     type: 'VUE2'
   },
   {
+    from: 'model-value',
+    to: 'value',
+    type: 'VUE2'
+  },
+  {
     from: /expose\(.*?\)/gms,
     to: '',
     type: 'VUE2'
