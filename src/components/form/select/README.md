@@ -61,3 +61,11 @@
 
 ## optionProps
 子组件的透传参数
+
+#### optionProps.disabled
+> boolean | function
+
+```vue
+<bk-select :option-props="{ disabled: true }" />
+<bk-select :option-props="{ disabled: (item) => false }" />
+```

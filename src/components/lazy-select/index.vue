@@ -258,7 +258,6 @@ export default defineComponent({
         loadData({
           page: 1,
           size: 99,
-          ids,
           id: ids
         })
       }
