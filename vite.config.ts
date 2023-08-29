@@ -9,8 +9,9 @@ import { isVue2, version } from 'vue-demi'
 import { preprocessor } from './scripts/vite-plugin-preprocessor'
 
 export default defineConfig(async ({ mode }) => {
-  console.log('===vue 版本===: ', version)
+  console.log('===vue 版本===: ', mode, version)
 
+  const isProduction = mode === 'production'
   const plugins = [preprocessor]
 
   if (isVue2) {
@@ -21,6 +22,7 @@ export default defineConfig(async ({ mode }) => {
 
   return {
     plugins,
+    publicDir: isProduction ? false : 'public',
     resolve: {
       alias: {
         '@/types': path.resolve(__dirname, './types'),
@@ -43,6 +45,7 @@ export default defineConfig(async ({ mode }) => {
         fileName: 'index'
         // formats: ['es', 'umd', 'cjs']
       },
+      exclude: /\/public\/.*/,
       rollupOptions: {
         external: [
           'vue',
@@ -54,7 +57,22 @@ export default defineConfig(async ({ mode }) => {
           'axios',
           'ali-oss',
           '@element-plus/icons-vue',
-          'sortablejs'
+          'sortablejs',
+          'tinymce/tinymce',
+          '@tinymce/tinymce-vue',
+          'tinymce/themes/silver',
+          'tinymce/plugins/image',
+          'tinymce/plugins/media',
+          'tinymce/plugins/table',
+          'tinymce/plugins/wordcount',
+          'tinymce/plugins/link',
+          'tinymce/icons/default/icons',
+          'tinymce/models/dom/model',
+          'tinymce/plugins/fullscreen',
+          'tinymce/skins/ui/oxide/content.min.css',
+          'tinymce/skins/ui/oxide/content.inline.min.css',
+          'tinymce/skins/ui/oxide/skin.min.css',
+          'tinymce/skins/ui/oxide/skin.shadowdom.min.css'
         ],
         // input: {
         //   index: 'src/main.ts'

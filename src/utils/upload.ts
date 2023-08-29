@@ -9,6 +9,7 @@ import {
 } from '@/types/upload.d'
 import { isEmpty, isImg, isImgGif } from '@/utils'
 import BkUpload from '@/components/form/upload/index.vue'
+import BkEditor from '@/components/form/editor/index.vue'
 import { ElMessage } from '@/components/element'
 
 let ossCacheConfig = {} as TypeOssCacheConfig
@@ -30,7 +31,7 @@ const getAuthToken = () => {
   return authToken
 }
 
-const getOssConfig = async (): Promise<TypeOssConfig> => {
+export const getOssConfig = async (): Promise<TypeOssConfig> => {
   try {
     if (!isEmpty(ossCacheConfig)) {
       const curTime = Date.now()
@@ -188,4 +189,10 @@ export const upload = async (file: File, options = {} as TypeUploadOptions) => {
   } catch (e: any) {
     ElMessage.error(e)
   }
+}
+
+export const multipleUpload = (list: string[]) => {
+  return axios.post(BkEditor.configCopyUploadApiUrl, list, {
+    headers: { Authorization: `Bearer ${getAuthToken()}` }
+  })
 }

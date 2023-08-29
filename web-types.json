@@ -450,6 +450,11 @@
               "type": "string | number"
             }
           ]
+        },
+        {
+          "name": "bk-editor",
+          "description": "富文本组件",
+          "doc-url": ""
         }
       ]
     }

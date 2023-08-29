@@ -3,6 +3,7 @@ import BkSelect from './components/form/select/index.vue'
 import BkUpload from './components/form/upload/index.vue'
 import BkOssFile from './components/form/upload/components/oss-file/index.vue'
 import BkSwitch from './components/form/switch/index.vue'
+import BkEditor from './components/form/editor/index.vue'
 export * from './components/form/table'
 
 import BkLazySelect from './components/lazy-select/index.vue'
@@ -16,6 +17,7 @@ export {
   BkUpload,
   BkOssFile,
   BkSwitch,
+  BkEditor,
   BkLazySelect,
   BkDraggable,
   BkModal,

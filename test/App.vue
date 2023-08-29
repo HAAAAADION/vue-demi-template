@@ -12,8 +12,10 @@ import BkDraggable from '@/components/draggable/index.vue'
 import BkModal from '@/components/modal/index.vue'
 import modal from './components/modal.vue'
 import Tooltip from '@/components/tooltip/index.vue'
+import BkEditor from '@/components/form/editor/index.vue'
 
 BkUpload.configApiUrl = 'http://vebk.test.gateway.huitravel.com/resource/sts/assumerole'
+BkEditor.configCopyUploadApiUrl = 'http://vebk.test.gateway.huitravel.com/resource/image/upload'
 
 const input = ref(null)
 const select = ref(null)
@@ -21,6 +23,7 @@ const max = ref(10)
 const number = ref(false)
 const multiple = ref(false)
 const radio = ref(false)
+const content = ref('asdasdasd')
 const upload = ref([
   'development/tenant/common/d7a29509e59049309a7d104a8d47140b.jpeg',
   'development/tenant/common/2630e04922454406b93f9e4cc53eff77.png',
@@ -281,5 +284,7 @@ const openModal = () => {
         </template>
       </tooltip>
     </div>
+
+    <bk-editor v-model="content" />
   </div>
 </template>
