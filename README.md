@@ -51,6 +51,7 @@ console.log('vue2')
 - [x] [upload](./src/components/form/upload/README.md) 文件上传组件
 - [x] [table](./src/components/form/table/README.md) 表单表格组件
 - [x] [switch](./src/components/form/switch/README.md) 开关组件
+- [x] [editor](./src/components/form/editor/README.md) 富文本组件
 
 
 - 普通组件
