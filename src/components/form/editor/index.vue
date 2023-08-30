@@ -1,6 +1,59 @@
 <template>
-  <div v-loading="loading">
-    <editor v-model="content" v-bind="attrs" :init="init" />
+  <div :class="styles.editor">
+    <div
+      v-loading="loading"
+      :class="styles.container"
+      :style="{ width: preview ? undefined : '100%' }"
+    >
+      <editor v-model="content" v-bind="attrs" :init="init" />
+    </div>
+    <template v-if="preview">
+      <div :class="styles.phone">
+        <img :src="previewBg" :class="styles.phoneBg" />
+        <div v-html="content" :class="styles.content" />
+      </div>
+      <div :class="styles.recommend">
+        <el-descriptions
+          :column="1"
+          :colon="false"
+          :content-style="editorContentStyle"
+          title="编辑器推荐"
+        >
+          <el-descriptions-item>
+            <a href="https://xiumi.us/studio/v5#/paper/for/new/cube/0" target="blank">秀米编辑器</a>
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <a href="https://www.365editor.com/" target="blank">365编辑器</a>
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <a href="https://bj.96weixin.com/" target="blank">96编辑器</a>
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <a href="https://www.135editor.com/" target="blank">135编辑器</a>
+          </el-descriptions-item>
+        </el-descriptions>
+        <el-descriptions
+          :column="1"
+          :colon="false"
+          :contentStyle="editorContentStyle"
+          title="图片处理工具"
+        >
+          <el-descriptions-item>
+            <a href="https://www.chuangkit.com/" target="blank">创可贴</a>
+          </el-descriptions-item>
+        </el-descriptions>
+        <el-descriptions
+          :column="1"
+          :colon="false"
+          :contentStyle="editorContentStyle"
+          title="图片编辑工具"
+        >
+          <el-descriptions-item>
+            <a href="https://www.iloveimg.com/zh-cn" target="blank">ILOVEIMG</a>
+          </el-descriptions-item>
+        </el-descriptions>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -22,8 +75,9 @@ import 'tinymce/skins/ui/oxide/content.min.css'
 import 'tinymce/skins/ui/oxide/content.inline.min.css'
 import 'tinymce/skins/ui/oxide/skin.min.css'
 import 'tinymce/skins/ui/oxide/skin.shadowdom.min.css'
-import { upload, filterOssURL, getOssConfig, multipleUpload } from '@/utils/upload'
+import { upload, filterOssURL, getOssConfig, multipleUpload, formatOssUrl } from '@/utils/upload'
 import { messageLoading } from '@/utils'
+import styles from './index.module.scss'
 
 export default defineComponent({
   name: 'BkEditor',
@@ -33,12 +87,20 @@ export default defineComponent({
     modelValue: {
       type: null,
       default: undefined
+    },
+    preview: {
+      type: Boolean,
+      default: true
     }
   },
   setup(props, { attrs, emit }): any {
     const state = reactive({
       content: props.modelValue,
       loading: false,
+      editorContentStyle: {
+        color: '#2E8FF4'
+      },
+      previewBg: '',
       init: {
         language_url: '/tinymce/zh-Hans.js',
         language: 'zh-Hans',
@@ -65,7 +127,7 @@ export default defineComponent({
       }
     })
 
-    const { content, loading, init } = toRefs(state)
+    const { content, loading, editorContentStyle, previewBg, init } = toRefs(state)
 
     // 上传文件缓存
     const _cacheUrl = {}
@@ -155,10 +217,19 @@ export default defineComponent({
       })
     }
 
+    ;(async () => {
+      if (props.preview) {
+        state.previewBg = await formatOssUrl('public/phone.png')
+      }
+    })()
+
     return {
+      styles,
       attrs,
       content,
       loading,
+      previewBg,
+      editorContentStyle,
       init
     }
   }

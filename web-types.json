@@ -454,7 +454,15 @@
         {
           "name": "bk-editor",
           "description": "富文本组件",
-          "doc-url": ""
+          "doc-url": "",
+          "props": [
+            {
+              "name": "preview",
+              "description": "是否开启预览",
+              "type": "boolean",
+              "default": "true"
+            }
+          ]
         }
       ]
     }
