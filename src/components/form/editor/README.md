@@ -18,8 +18,13 @@ BkEditor.configCopyUploadApiUrl = 'http://vebk.test.gateway.huitravel.com/resour
 
 PS: 组件会自动透传所有参数, 因此有额外定制需求请先参考[文档](https://www.tiny.cloud/docs/tinymce/6/)
 
-## 使用方法
+## 参数解释
+
+##### preview
+> boolean
+
+是否开启预览
 
 ```vue
-<editor v-model="content" />
+<editor v-model="content" :preivew="false" />
 ```
