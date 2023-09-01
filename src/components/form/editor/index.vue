@@ -58,7 +58,7 @@
 </template>
 
 <script lang="ts">
-import { reactive, toRefs, watch, defineComponent } from 'vue-demi'
+import { reactive, toRefs, watch, onMounted, defineComponent } from 'vue-demi'
 import 'tinymce/tinymce'
 import Editor from '@tinymce/tinymce-vue'
 // 更多插件参考：https://www.tiny.cloud/docs/plugins/
@@ -77,6 +77,7 @@ import 'tinymce/skins/ui/oxide/skin.min.css'
 import 'tinymce/skins/ui/oxide/skin.shadowdom.min.css'
 import { upload, filterOssURL, getOssConfig, multipleUpload, formatOssUrl } from '@/utils/upload'
 import { messageLoading } from '@/utils'
+import { parseImg } from './parse'
 import styles from './index.module.scss'
 
 export default defineComponent({
@@ -217,6 +218,18 @@ export default defineComponent({
       })
     }
 
+    onMounted(() => {
+      document.addEventListener(
+        'click',
+        e => {
+          if (!e.target?.classList?.contains('tox-button')) return
+          setTimeout(() => {
+            parseImg()
+          }, 100)
+        },
+        true
+      )
+    })
     ;(async () => {
       if (props.preview) {
         state.previewBg = await formatOssUrl('public/phone.png')
