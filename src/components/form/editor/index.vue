@@ -191,7 +191,7 @@ export default defineComponent({
 
         // 替换链接
         try {
-          result.forEach((e, i) => {
+          result.forEach(e => {
             if (!e?.path) return
 
             const replaceUrl = filterOssURL(e.path)

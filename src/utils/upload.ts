@@ -181,8 +181,12 @@ export const upload = async (file: File, options = {} as TypeUploadOptions) => {
   const { service = 'common', headers } = options
 
   try {
+    const useFile =
+      !(file instanceof File) && file.type ? new File([file], file.name, { type: file.type }) : file
+
     const oss = await initAliOss()
-    const compressFile = isImg(file.type) && !isImgGif(file.type) ? await compressImg(file) : file
+    const compressFile =
+      isImg(useFile.type) && !isImgGif(useFile.type) ? await compressImg(useFile) : useFile
     const fileName = createFileName(compressFile, service)
 
     return oss.put(fileName, compressFile, { headers })
