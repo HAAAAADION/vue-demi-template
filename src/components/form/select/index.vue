@@ -1,28 +1,30 @@
 <template>
-  <template v-if="readonly">{{ readText }}</template>
-  <component
-    v-else
-    v-bind="attrs"
-    :is="parentComponent"
-    :model-value="modelValue"
-    @input="handleInput"
-    @change="handleChange"
-  >
+  <div :class="styles.select">
+    <template v-if="readonly">{{ readText }}</template>
     <component
-      v-for="(item, index) in selectData"
-      :is="subComponent"
-      :key="item.code"
-      :label="radio ? item.code : item.name"
-      :value="item.code"
-      :disabled="
-        isFunction(optionProps.disabled)
-          ? optionProps.disabled(item, index)
-          : !!optionProps.disabled
-      "
+      v-else
+      v-bind="attrs"
+      :is="parentComponent"
+      :model-value="modelValue"
+      @input="handleInput"
+      @change="handleChange"
     >
-      {{ item.name }}
+      <component
+        v-for="(item, index) in selectData"
+        :is="subComponent"
+        :key="item.code"
+        :label="radio ? item.code : item.name"
+        :value="item.code"
+        :disabled="
+          isFunction(optionProps.disabled)
+            ? optionProps.disabled(item, index)
+            : !!optionProps.disabled
+        "
+      >
+        {{ item.name }}
+      </component>
     </component>
-  </component>
+  </div>
 </template>
 
 <script lang="ts">
@@ -30,6 +32,7 @@ import { toRefs, defineComponent, computed, PropType } from 'vue-demi'
 import { ElSelect, ElRadio, ElRadioGroup, ElOption } from '@/components/element'
 import { isEmpty, isFunction } from '@/utils'
 import { TypeSelectStatus, TypeSelectData } from '@/types/select.d'
+import styles from './index.module.scss'
 
 export default defineComponent({
   name: 'BkSelect',
@@ -150,6 +153,7 @@ export default defineComponent({
     }
 
     return {
+      styles,
       selectData,
       attrs: newAttrs,
       parentComponent: Com,
