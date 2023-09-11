@@ -1,41 +1,44 @@
 <template>
-  <div :class="{ [styles.upload]: true, [styles.disabled]: loading }" :style="containerHeight">
-    <div :style="containerHeight" :class="styles.imgs">
-      <bk-draggable v-model="imgs" :disabled="!drag" @change="update">
-        <oss-file
-          v-for="(url, index) in imgs"
-          :key="url"
-          :url="url"
-          :acl="acl"
-          :img-style="imgStyle"
-          :file-list="imgs"
-          :action="action"
-          :class="styles.img"
-          :resize="{ w: 300 }"
-          @edit="edit(index)"
-          @remove="remove(index)"
-        />
-      </bk-draggable>
-    </div>
-    <el-upload
-      v-if="!readonly"
-      v-show="!imgs.length || isMultiple"
-      :multiple="isMultiple"
-      :show-file-list="false"
-      :http-request="beforeUpload"
-      :accept="acceptText"
-      :class="styles.uploader"
-      :disabled="loading"
-      :style="{ height: imgStyle.height }"
-      action=""
-      ref="uploadInput"
-      key="upload"
+  <div :class="{ [styles.upload]: true, [styles.disabled]: loading }">
+    <bk-draggable
+      v-model="imgs"
+      :disabled="!drag"
+      :options="{ filter: `.${styles.uploader}` }"
+      @change="update"
     >
-      <div :style="iconStyle" :class="styles.trigger">
-        <template v-if="loading">上传中..</template>
-        <icon v-else ref="refUploadHandler" name="Plus" :class="styles.icon" />
-      </div>
-    </el-upload>
+      <oss-file
+        v-for="(url, index) in imgs"
+        :key="url"
+        :url="url"
+        :acl="acl"
+        :img-style="imgStyle"
+        :file-list="imgs"
+        :action="action"
+        :class="styles.img"
+        :resize="{ w: 300 }"
+        @edit="edit(index)"
+        @remove="remove(index)"
+      />
+      <el-upload
+        v-if="!readonly"
+        v-show="!imgs.length || isMultiple"
+        :multiple="isMultiple"
+        :show-file-list="false"
+        :http-request="beforeUpload"
+        :accept="acceptText"
+        :class="styles.uploader"
+        :disabled="loading"
+        :style="{ height: imgStyle.height }"
+        action=""
+        ref="uploadInput"
+        key="upload"
+      >
+        <div :style="iconStyle" :class="styles.trigger">
+          <template v-if="loading">上传中..</template>
+          <icon v-else ref="refUploadHandler" name="Plus" :class="styles.icon" />
+        </div>
+      </el-upload>
+    </bk-draggable>
   </div>
 </template>
 
@@ -142,8 +145,6 @@ export default defineComponent({
       if (data.width === 'auto') data.width = data.height
       return data
     })
-
-    const containerHeight = computed(() => ({ height: props.imgStyle.height }))
 
     // 上传额外请求头
     const headers = computed(() => {
@@ -256,7 +257,6 @@ export default defineComponent({
       loading,
       imgs,
       iconStyle,
-      containerHeight,
       headers,
       acceptText,
       action,
