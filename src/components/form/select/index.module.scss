@@ -4,12 +4,13 @@
   :global {
     .el-select,
     .el-radio-group {
+      height: 40px;
       display: block;
     }
 
     .el-radio {
-      height: 32px;
-      line-height: 32px;
+      height: 40px;
+      line-height: 40px;
     }
   }
 }
