@@ -210,7 +210,8 @@ export default defineComponent({
         return
       }
 
-      if (props.size && uploadFile.file?.size > props.size) {
+      // 获取的是 bytes, 除 1024 转 kb 计算
+      if (props.size && uploadFile.file?.size / 1024 > props.size) {
         ElMessage.error(`资源大小不能超过${props.size}`)
         return
       }
