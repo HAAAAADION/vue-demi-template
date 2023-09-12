@@ -100,9 +100,10 @@ export default defineComponent({
 
       if (type === 'blur') {
         emit('blur', res)
+      } else if (type === 'change') {
+        emit('change', res)
       } else {
         emit('update:modelValue', res)
-        emit('change', res)
       }
     }
 
