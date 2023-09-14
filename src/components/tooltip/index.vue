@@ -33,7 +33,7 @@ export default defineComponent({
   props: {
     content: {
       type: String,
-      required: true
+      default: undefined
     },
     line: {
       type: [Number, String],

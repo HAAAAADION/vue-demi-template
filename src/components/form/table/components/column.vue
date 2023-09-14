@@ -1,5 +1,6 @@
 <template>
   <el-table-column v-bind="attrs">
+    <template v-if="slots.header" #header><slot name="header" /></template>
     <template #default="{ row, $index }">
       <component :is="Component" :prop="`list[${$index}].${prop}`">
         <slot :row="row" :$index="$index">
