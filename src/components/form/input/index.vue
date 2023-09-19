@@ -1,34 +1,35 @@
 <template>
-  <div
-    :class="{
-      [styles.input]: true,
-      [styles.inputNumber]: number,
-      [styles.inputPrepend]: slots.prepend,
-      [styles.inputAppend]: slots.append
-    }"
-  >
-    <span v-if="readonly">{{ modelValue || '-' }}</span>
-    <template v-else>
-      <span v-if="number && slots.prepend" :class="styles.prepend">
-        <slot name="prepend" />
-      </span>
-      <component
-        v-bind="attrs"
-        :is="component"
-        :model-value="modelValue"
-        @input="listeners.input"
-        @change="listeners.change"
-        @blur="listeners.blur"
-      >
-        <template v-if="slots.prefix" #prefix><slot name="prefix" /></template>
-        <template v-if="slots.suffix" #suffix><slot name="suffix" /></template>
-        <template v-if="slots.prepend" #prepend><slot name="prepend" /></template>
-        <template v-if="slots.append" #append><slot name="append" /></template>
-      </component>
-      <span v-if="number && slots.append" :class="styles.append">
-        <slot name="append" />
-      </span>
-    </template>
+  <div :class="styles.input">
+    <div
+      :class="{
+        [styles.inputNumber]: number,
+        [styles.inputPrepend]: slots.prepend,
+        [styles.inputAppend]: slots.append
+      }"
+    >
+      <span v-if="readonly">{{ modelValue || '-' }}</span>
+      <template v-else>
+        <span v-if="number && slots.prepend" :class="styles.prepend">
+          <slot name="prepend" />
+        </span>
+        <component
+          v-bind="attrs"
+          :is="component"
+          :model-value="modelValue"
+          @input="listeners.input"
+          @change="listeners.change"
+          @blur="listeners.blur"
+        >
+          <template v-if="slots.prefix" #prefix><slot name="prefix" /></template>
+          <template v-if="slots.suffix" #suffix><slot name="suffix" /></template>
+          <template v-if="slots.prepend" #prepend><slot name="prepend" /></template>
+          <template v-if="slots.append" #append><slot name="append" /></template>
+        </component>
+        <span v-if="number && slots.append" :class="styles.append">
+          <slot name="append" />
+        </span>
+      </template>
+    </div>
   </div>
 </template>
 

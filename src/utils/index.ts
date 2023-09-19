@@ -70,7 +70,9 @@ export const safeGet = (
   } else {
     newPath = path.replace(/\[/g, '.').replace(/\]/g, '').split('.')
   }
-  return newPath.reduce((o: any = {}, k) => o[k], object) || defaultVal
+
+  const result = newPath.reduce((o: any = {}, k) => o[k], object)
+  return isEmpty(result) ? defaultVal : result
 }
 
 export const messageLoading = async (text: string, fn: any) => {

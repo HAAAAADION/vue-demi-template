@@ -1,16 +1,12 @@
 .select {
   display: inline-block;
 
+  // #ifdef VUE2
   :global {
-    .el-select,
-    .el-radio-group {
-      height: 40px;
-      display: block;
-    }
-
     .el-radio {
       height: 40px;
       line-height: 40px;
     }
   }
+  // #endif
 }

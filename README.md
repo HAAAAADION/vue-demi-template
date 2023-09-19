@@ -25,6 +25,20 @@ console.log('vue2')
 // #endif
 ```
 
+```scss
+// #ifdef VUE3
+.el-radio {
+  height: 20px;
+}
+// #endif
+
+// #ifdef VUE2
+.el-radio {
+  height: 40px;
+}
+// #endif
+```
+
 ```vue
 <template>
 <!--#ifdef VUE3-->

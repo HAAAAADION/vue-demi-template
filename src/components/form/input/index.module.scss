@@ -1,4 +1,6 @@
 .input {
+  display: inline-block;
+
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -25,7 +27,7 @@
   border: 1px solid #dcdfe6;
   border-radius: 4px;
   padding: 0 20px;
-  height: 40px;
+  //height: 40px;
   white-space: nowrap;
 }
 
