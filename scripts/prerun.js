@@ -13,6 +13,7 @@ const DefaultVue = path.join(__dirname, '../node_modules/vue')
 const Vue2 = path.join(__dirname, '../node_modules/vue2')
 const Vue3 = path.join(__dirname, '../node_modules/vue3')
 const comElement = path.join(__dirname, '../src/components/element.ts')
+const comTinymceVue = path.join(__dirname, '../src/components/tinymce-vue.ts')
 
 fsExtra.copySync(isVue2 ? Vue2 : Vue3, DefaultVue, { overwrite: true })
 
@@ -29,4 +30,11 @@ fs.writeFileSync(
         })
         .join(',')} } from 'element-ui'`
     : "export * from 'element-plus'"
+)
+
+// 3. 统一 tinymce-vue
+fs.writeFileSync(
+  comTinymceVue,
+  `import Editor from '${isVue2 ? '@tinymce/tinymce-vue' : 'tinymce-vue3'}'
+export default Editor`
 )

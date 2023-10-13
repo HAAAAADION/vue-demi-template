@@ -5,9 +5,7 @@
 由于 OSS 生成链接需要鉴权, 鉴权的配置需要从后端获取, 虽然内部已经集成了接口请求的逻辑, 但由于不同项目之间的接口不一致, 因此在使用前需要先设置鉴权接口的 API 地址, 如: 
 
 ```javasciprt
-import { BkUpload } from '@components/backend'
-
-BkUpload.configApiUrl = 'http://vebk.test.gateway.huitravel.com/resource/sts/assumerole'
+window.configApiUrl = 'http://vebk.test.gateway.huitravel.com/resource/sts/assumerole'
 ```
 
 ## readonly

@@ -14,8 +14,8 @@ import modal from './components/modal.vue'
 import Tooltip from '@/components/tooltip/index.vue'
 import BkEditor from '@/components/form/editor/index.vue'
 
-BkUpload.configApiUrl = 'http://vebk.test.gateway.huitravel.com/resource/sts/assumerole'
-BkEditor.configCopyUploadApiUrl = 'http://vebk.test.gateway.huitravel.com/resource/image/upload'
+window.configApiUrl = 'http://vebk.test.gateway.huitravel.com/resource/sts/assumerole'
+window.configCopyUploadApiUrl = 'http://vebk.test.gateway.huitravel.com/resource/image/upload'
 
 const input = ref(null)
 const select = ref(null)

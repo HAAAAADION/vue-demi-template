@@ -8,8 +8,6 @@ import {
   TypeUploadProcess
 } from '@/types/upload.d'
 import { isEmpty, isImg, isImgGif } from '@/utils'
-import BkUpload from '@/components/form/upload/index.vue'
-import BkEditor from '@/components/form/editor/index.vue'
 import { ElMessage } from '@/components/element'
 
 let ossCacheConfig = {} as TypeOssCacheConfig
@@ -42,7 +40,7 @@ export const getOssConfig = async (): Promise<TypeOssConfig> => {
 
     fetchCache =
       fetchCache ||
-      axios.get((BkUpload as any).configApiUrl, {
+      axios.get(window.configApiUrl, {
         headers: { Authorization: `Bearer ${getAuthToken()}` }
       })
 
@@ -196,7 +194,7 @@ export const upload = async (file: File, options = {} as TypeUploadOptions) => {
 }
 
 export const multipleUpload = (list: string[]) => {
-  return axios.post(BkEditor.configCopyUploadApiUrl, list, {
+  return axios.post(window.configCopyUploadApiUrl, list, {
     headers: { Authorization: `Bearer ${getAuthToken()}` }
   })
 }

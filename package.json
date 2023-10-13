@@ -1,6 +1,6 @@
 {
   "name": "@component/backend",
-  "version": "1.0.143",
+  "version": "1.0.146",
   "type": "module",
   "main": "./dist/vue2/index.umd.cjs",
   "module": "./dist/vue2/index.js",
@@ -42,7 +42,6 @@
   },
   "devDependencies": {
     "@element-plus/icons-vue": "^2.1.0",
-    "@tinymce/tinymce-vue": "^5.1.1",
     "@types/ali-oss": "^6.16.8",
     "@types/node": "^20.3.1",
     "@types/sortablejs": "^1.15.1",
@@ -64,6 +63,8 @@
     "sass": "^1.62.1",
     "sortablejs": "^1.15.0",
     "tinymce": "^6.6.2",
+    "tinymce-vue2": "npm:@tinymce/tinymce-vue@3.2.8",
+    "tinymce-vue3": "npm:@tinymce/tinymce-vue@5.1.1",
     "typescript": "^5.0.2",
     "unplugin-auto-import": "^0.16.0",
     "unplugin-element-plus": "^0.7.1",

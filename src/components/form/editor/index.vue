@@ -60,7 +60,7 @@
 <script lang="ts">
 import { reactive, toRefs, watch, onMounted, defineComponent } from 'vue-demi'
 import 'tinymce/tinymce'
-import Editor from '@tinymce/tinymce-vue'
+import Editor from '@/components/tinymce-vue'
 // 更多插件参考：https://www.tiny.cloud/docs/plugins/
 import 'tinymce/themes/silver'
 import 'tinymce/plugins/image'

@@ -8,9 +8,7 @@
 复制文本后遍历内容, 将图片资源转存到我们的阿里云服务器, 转存使用的是另一个接口, 因此和鉴权一样, 也需要另外设置转存的接口地址
 
 ```javasciprt
-import { BkEditor } from '@components/backend'
-
-BkEditor.configCopyUploadApiUrl = 'http://vebk.test.gateway.huitravel.com/resource/image/upload'
+window.configCopyUploadApiUrl = 'http://vebk.test.gateway.huitravel.com/resource/image/upload'
 ```
 
 #### 2. 基础配置文件
