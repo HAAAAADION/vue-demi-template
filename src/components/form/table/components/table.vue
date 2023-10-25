@@ -3,6 +3,7 @@
     <bk-lazy-table
       ref="refLazyTable"
       v-bind="attrs"
+      v-on="on"
       :fetch-api="fetchData"
       :show-pagination="showPagination"
       :page-size="pageSize"
@@ -75,7 +76,7 @@ export default defineComponent({
       default: 10
     }
   },
-  setup(props, { attrs, slots, emit, expose }): any {
+  setup(props, { attrs, listeners, slots, emit, expose }): any {
     const { getListRules, validateField, clearListValidate } = useValidator()
 
     const refForm = ref<any>(null)
@@ -88,6 +89,19 @@ export default defineComponent({
     })
 
     const { form } = toRefs(state)
+
+    // 收集监听事件
+    let on = {} as any
+    // #ifdef VUE2
+    on = listeners
+    // #endif
+    // #ifdef VUE3
+    Object.keys(attrs).forEach(key => {
+      if (/on[A-Z]/.test(key)) {
+        on[key] = attrs[key]
+      }
+    })
+    // #endif
 
     const customRules = computed(() => {
       return getListRules({
@@ -166,6 +180,7 @@ export default defineComponent({
       refForm,
       refLazyTable,
       attrs,
+      on,
       slots,
       form,
       customRules,

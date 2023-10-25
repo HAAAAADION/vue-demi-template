@@ -7,7 +7,7 @@
     :options="{ handle: '.sort-handler' }"
     @change="handleDrag"
   >
-    <el-table v-loading="loading" v-bind="attrs" :data="list" :row-key="rowKey">
+    <el-table v-loading="loading" v-bind="attrs" v-on="on" :data="list" :row-key="rowKey">
       <el-table-column
         v-if="drag"
         label="排序"
@@ -84,7 +84,7 @@ export default defineComponent({
       default: false
     }
   },
-  setup(props, { attrs, slots, emit, expose }): any {
+  setup(props, { attrs, listeners, slots, emit, expose }): any {
     const state = reactive({
       loading: false,
       list: [] as Record<string, any>[],
@@ -100,6 +100,19 @@ export default defineComponent({
     })
 
     const { list, pagination, loading, isShowPagination } = toRefs(state)
+
+    // 收集监听事件
+    let on = {} as any
+    // #ifdef VUE2
+    on = listeners
+    // #endif
+    // #ifdef VUE3
+    Object.keys(attrs).forEach(key => {
+      if (/on[A-Z]/.test(key)) {
+        on[key] = attrs[key]
+      }
+    })
+    // #endif
 
     const pageSizes = computed(() => {
       const defaultSize = [10, 20, 30, 40, 50, 100]
@@ -165,6 +178,7 @@ export default defineComponent({
       styles,
       slots,
       attrs,
+      on,
       pageSizes,
       list,
       pagination,
