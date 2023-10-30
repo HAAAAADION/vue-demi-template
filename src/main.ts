@@ -2,8 +2,10 @@ import { defineAsyncComponent } from 'vue-demi'
 
 import BkInput from './components/form/input/index.vue'
 import BkSelect from './components/form/select/index.vue'
-import BkUpload from './components/form/upload/index.vue'
-import BkOssFile from './components/form/upload/components/oss-file/index.vue'
+const BkUpload = defineAsyncComponent(() => import('./components/form/upload/index.vue'))
+const BkOssFile = defineAsyncComponent(
+  () => import('./components/form/upload/components/oss-file/index.vue')
+)
 import BkSwitch from './components/form/switch/index.vue'
 const BkEditor = defineAsyncComponent(() => import('./components/form/editor/index.vue'))
 export * from './components/form/table'
