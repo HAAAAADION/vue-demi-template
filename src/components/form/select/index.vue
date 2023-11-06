@@ -9,6 +9,7 @@
     @input="handleInput"
     @change="handleChange"
   >
+    <template v-if="slots.prefix" #prefix><slot name="prefix" /></template>
     <component
       v-for="(item, index) in selectData"
       :is="subComponent"
@@ -82,7 +83,7 @@ export default defineComponent({
       default: null
     }
   },
-  setup(props, { attrs, emit }): any {
+  setup(props, { attrs, slots, emit }): any {
     const { modelValue, data, status, text, radio, readonly, valueKey, labelKey } = toRefs(props)
 
     const Com = computed(() => {
@@ -155,6 +156,7 @@ export default defineComponent({
       styles,
       selectData,
       attrs: newAttrs,
+      slots,
       parentComponent: Com,
       subComponent: SubCom,
       isFunction,
