@@ -129,7 +129,8 @@ export default defineComponent({
     const state = reactive({
       imgs: props.modelValue,
       index: undefined as number | undefined,
-      loading: false
+      loading: false,
+      progressQueue: 0 // 待上传的数量
     })
 
     const { imgs, loading } = toRefs(state)
@@ -180,6 +181,7 @@ export default defineComponent({
 
     const handleUpload = async (e: UploadRequestOptions) => {
       try {
+        state.progressQueue += 1
         state.loading = true
         const res = await upload(e.file, {
           service: props.service,
@@ -201,11 +203,16 @@ export default defineComponent({
         ElMessage.error('上传失败')
       }
 
+      state.progressQueue -= 1
       state.loading = false
     }
 
     const beforeUpload = (uploadFile: UploadRequestOptions) => {
-      if (state.imgs.length >= +props.max && isMultiple.value && state.index === undefined) {
+      if (
+        state.imgs.length + state.progressQueue >= +props.max &&
+        isMultiple.value &&
+        state.index === undefined
+      ) {
         ElMessage.error(`最多上传${props.max}个资源文件`)
         return
       }
