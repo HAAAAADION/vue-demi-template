@@ -271,7 +271,10 @@ export default defineComponent({
     const onChange = (val: any) => {
       emit('update:modelValue', val)
 
-      const cur = state.list.find(e => val === getRowKey(e))
+      const cur = isMultiple.value
+        ? state.list.filter(e => val.includes(getRowKey(e)))
+        : state.list.find(e => val === getRowKey(e))
+
       emit('change', cur || val)
     }
 
