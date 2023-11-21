@@ -1,34 +1,10 @@
-import { resolve } from 'path'
 import { preprocessor } from '../scripts/vite-plugin-preprocessor'
 
-export default async ({ mode }) => {
-  const isProduction = mode === 'production'
-
+export default async () => {
   return {
     plugins: [preprocessor, (await import('vite-plugin-vue2')).createVuePlugin({ jsx: true })],
-    publicDir: isProduction ? false : 'public',
-    resolve: {
-      alias: {
-        '@/types': resolve(__dirname, '../types'),
-        '@': resolve(__dirname, '../src')
-      }
-    },
-    optimizeDeps: {
-      exclude: ['vue-demi']
-    },
-    css: {
-      modules: {
-        localsConvention: 'camelCaseOnly'
-      }
-    },
     build: {
       outDir: 'dist/vue2',
-      lib: {
-        entry: resolve(__dirname, '../src/main.ts'),
-        name: 'component',
-        fileName: 'index'
-      },
-      exclude: /\/public\/.*/,
       rollupOptions: {
         external: [
           'vue',
@@ -56,25 +32,7 @@ export default async ({ mode }) => {
           'tinymce/skins/ui/oxide/content.inline.min.css',
           'tinymce/skins/ui/oxide/skin.min.css',
           'tinymce/skins/ui/oxide/skin.shadowdom.min.css'
-        ],
-        // input: {
-        //   index: 'src/main.ts'
-        // },
-        output: {
-          // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
-          // entryFileNames: '[name].js',
-          // // format: "es",
-          // inlineDynamicImports: false,
-          // // chunkFileNames: '[name].[hash].js',
-          // manualChunks: {
-          //   tinymce: chunkTinymce
-          // },
-          // format: 'commonjs',
-          globals: {
-            vue: 'Vue',
-            'vue-demi': 'VueDemi'
-          }
-        }
+        ]
       }
     }
   }

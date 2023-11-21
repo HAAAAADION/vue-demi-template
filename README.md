@@ -77,6 +77,48 @@ console.log('vue2')
 - [x] [modal](./src/components/modal/README.md) 弹窗组件
 - [x] [tooltip](./src/components/tooltip/README.md) 文本省略提示组件
 
+## 多语言
+目前项目会默认输出中英文的默认语言配置：
+
+- vue2: 
+  - 中文: @component/backend/dist/vue2/lang/zh-CN
+  - 英文: @component/backend/dist/vue2/lang/en
+- vue3: 
+  - 中文: @component/backend/dist/vue3/lang/zh-CN
+  - 英文: @component/backend/dist/vue3/lang/en
+
+引入后在项目多语言配置「根位置」引入即可, 如:
+
+```javascript
+import config from '@component/backend/dist/vue2/lang/en'
+export default {
+  ...config
+}
+```
+
+另外需要配置多语言的查询回调方法, 如:
+
+```javascript
+import VueI18n from 'vue-i18n'
+import setI18n from '@component/backend'
+setI18n({
+  i18n: (key, value) => {
+    return i18n.t(key, value)
+  }
+})
+```
+
+模版调用路径为 `cb.${path}`, 如:
+
+```vue
+<template>
+  <div>{{ $t('cb.input') }}</div>
+  <div>{{ $t('cb.select') }}</div>
+</template>
+```
+
+
+
 ## TODO
 - ~~打包优化~~
 - ~~多入口打包~~

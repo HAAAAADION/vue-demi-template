@@ -1,18 +1,16 @@
 {
   "name": "@component/backend",
-  "version": "1.0.153",
+  "version": "1.0.153.8",
   "type": "module",
-  "main": "./dist/vue2/index.umd.cjs",
+  "main": "./dist/vue2/index.js",
   "module": "./dist/vue2/index.js",
   "web-types": "./web-types.json",
   "exports": {
     ".": {
-      "import": "./dist/vue2/index.js",
-      "require": "./dist/vue2/index.umd.cjs"
+      "import": "./dist/vue2/index.js"
     },
     "./vue3": {
-      "import": "./dist/vue3/index.js",
-      "require": "./dist/vue3/index.umd.cjs"
+      "import": "./dist/vue3/index.js"
     },
     "./vue2/style.css": {
       "import": "./dist/vue2/style.css",
@@ -59,6 +57,8 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^8.6.0",
+    "fs-extra": "^11.1.1",
+    "lodash.set": "^4.3.2",
     "prettier": "^2.8.8",
     "sass": "^1.62.1",
     "sortablejs": "^1.15.0",

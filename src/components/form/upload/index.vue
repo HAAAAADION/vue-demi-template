@@ -34,7 +34,7 @@
         key="upload"
       >
         <div :style="iconStyle" :class="styles.trigger">
-          <template v-if="loading">上传中..</template>
+          <template v-if="loading">{{ i18n('cb.uploading') }}</template>
           <icon v-else ref="refUploadHandler" name="Plus" :class="styles.icon" />
         </div>
       </el-upload>
@@ -57,6 +57,7 @@ import {
 import { UploadRequestOptions } from '@/types/upload.d'
 import { upload } from '@/utils/upload'
 import { isEmpty } from '@/utils'
+import { i18n } from '@/utils/i18n'
 import { ElUpload, ElMessage } from '@/components/element'
 import Icon from '@/components/icon/index.vue'
 import OssFile from './components/oss-file/index.vue'
@@ -200,7 +201,7 @@ export default defineComponent({
           update(isMultiple.value ? list.concat(res!.name) : [res!.name])
         }
       } catch (error) {
-        ElMessage.error('上传失败')
+        ElMessage.error(i18n('cb.uploadFailed'))
       }
 
       state.progressQueue -= 1
@@ -213,13 +214,17 @@ export default defineComponent({
         isMultiple.value &&
         state.index === undefined
       ) {
-        ElMessage.error(`最多上传${props.max}个资源文件`)
+        ElMessage.error(
+          `${i18n('cb.uploadFailedOfNum')?.[0] || '最多上传'}${props.max}${
+            i18n('cb.uploadFailedOfNum')?.[1] || '个资源文件'
+          }`
+        )
         return
       }
 
       // 获取的是 bytes, 除 1024 转 kb 计算
       if (props.size && uploadFile.file?.size / 1024 > props.size) {
-        ElMessage.error(`资源大小不能超过${props.size}`)
+        ElMessage.error(`${i18n('cb.uploadFailedOfSize') || '资源大小不能超过'}${props.size}`)
         return
       }
 
@@ -231,7 +236,7 @@ export default defineComponent({
         const isMatch = acceptList.some(e => e === uploadFile?.file?.type)
 
         if (!isMatch) {
-          ElMessage.error('不能上传该格式文件')
+          ElMessage.error(i18n('cb.uploadFailedOfFormat') || '不能上传该格式文件')
           return
         }
       }
@@ -268,6 +273,7 @@ export default defineComponent({
       headers,
       acceptText,
       action,
+      i18n,
       beforeUpload,
       update,
       edit,

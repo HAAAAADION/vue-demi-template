@@ -37,6 +37,7 @@
 import { toRefs, computed, defineComponent } from 'vue-demi'
 import { ElInput, ElInputNumber } from '@/components/element'
 import { isEmpty } from '@/utils'
+import { i18n } from '@/utils/i18n'
 import styles from './index.module.scss'
 
 export default defineComponent({
@@ -120,6 +121,7 @@ export default defineComponent({
     const newAttrs = computed(() => ({
       ...attrs,
       ...props,
+      placeholder: i18n('cb.input') || props.placeholder,
       maxlength: max.value,
       showWordLimit: !disabled.value && max.value && textarea.value,
       type: textarea.value ? 'textarea' : attrs.type || 'text'

@@ -31,6 +31,7 @@
 import { toRefs, defineComponent, computed, PropType } from 'vue-demi'
 import { ElSelect, ElRadio, ElRadioGroup, ElOption } from '@/components/element'
 import { isEmpty, isFunction } from '@/utils'
+import { i18n } from '@/utils/i18n'
 import { TypeSelectStatus, TypeSelectData } from '@/types/select.d'
 import styles from './index.module.scss'
 
@@ -95,7 +96,8 @@ export default defineComponent({
 
     const newAttrs = computed(() => ({
       ...attrs,
-      ...props
+      ...props,
+      placeholder: i18n('cb.select') || props.placeholder
     }))
 
     const selectData = computed<TypeSelectData>(() => {

@@ -1,4 +1,5 @@
 import { defineAsyncComponent } from 'vue-demi'
+import { setI18n } from '@/utils/i18n'
 
 import BkInput from './components/form/input/index.vue'
 import BkSelect from './components/form/select/index.vue'
@@ -26,4 +27,9 @@ export {
   BkDraggable,
   BkModal,
   BkTooltip
+}
+
+export default (options = {}) => {
+  const { i18n } = options
+  setI18n(i18n)
 }

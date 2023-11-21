@@ -15,7 +15,7 @@
       :clearable="clearable"
       :multiple="isMultiple"
       :remote-method="onSearch"
-      :placeholder="placeholder"
+      :placeholder="i18n('cb.select') || placeholder"
       class="width-full"
       @change="onChange"
       @visible-change="onToggle"
@@ -31,7 +31,7 @@
         <i class="el-icon-loading" />
       </el-option>
       <el-option v-if="!loading && !list.length" disabled value="notfound">
-        {{ notFoundContent }}
+        {{ i18n('cb.notFoundContentForSelect') || notFoundContent }}
       </el-option>
     </el-select>
   </div>
@@ -46,6 +46,7 @@ import {
   TypeLazySelectKeyFunction
 } from '@/types/lazy-select.d'
 import { isFunction, isEmpty, safeGet } from '@/utils'
+import { i18n } from '@/utils/i18n'
 import { ElSelect } from '@/components/element'
 import styles from './index.module.scss'
 
@@ -320,6 +321,7 @@ export default defineComponent({
       isTotal,
       loading,
       list,
+      i18n,
       isFunction,
       onSearch,
       onToggle,
