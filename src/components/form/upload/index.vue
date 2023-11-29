@@ -34,7 +34,7 @@
         key="upload"
       >
         <div :style="iconStyle" :class="styles.trigger">
-          <template v-if="loading">{{ i18n('cb.uploading') }}</template>
+          <template v-if="loading">{{ i18n('cb.uploading') || '上传中..' }}</template>
           <icon v-else ref="refUploadHandler" name="Plus" :class="styles.icon" />
         </div>
       </el-upload>

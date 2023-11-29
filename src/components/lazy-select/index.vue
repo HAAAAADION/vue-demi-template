@@ -15,7 +15,7 @@
       :clearable="clearable"
       :multiple="isMultiple"
       :remote-method="onSearch"
-      :placeholder="i18n('cb.select') || placeholder"
+      :placeholder="placeholder || i18n('cb.select') || '请选择'"
       class="width-full"
       @change="onChange"
       @visible-change="onToggle"
@@ -31,7 +31,7 @@
         <i class="el-icon-loading" />
       </el-option>
       <el-option v-if="!loading && !list.length" disabled value="notfound">
-        {{ i18n('cb.notFoundContentForSelect') || notFoundContent }}
+        {{ notFoundContent || i18n('cb.notFoundContentForSelect') || '暂无数据' }}
       </el-option>
     </el-select>
   </div>
@@ -87,12 +87,12 @@ export default defineComponent({
     },
     placeholder: {
       type: String,
-      default: '请选择'
+      default: undefined
     },
     // 没有数据的文案展示
     notFoundContent: {
       type: String,
-      default: '暂无数据'
+      default: undefined
     },
     // 自定义 select 列表
     customList: {

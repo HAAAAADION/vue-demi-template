@@ -73,7 +73,7 @@ export default defineComponent({
     },
     placeholder: {
       type: String,
-      default: '请选择'
+      default: undefined
     },
     labelKey: {
       type: [String, Number],
@@ -97,7 +97,7 @@ export default defineComponent({
     const newAttrs = computed(() => ({
       ...attrs,
       ...props,
-      placeholder: i18n('cb.select') || props.placeholder
+      placeholder: props.placeholder || i18n('cb.select') || '请选择'
     }))
 
     const selectData = computed<TypeSelectData>(() => {

@@ -71,7 +71,7 @@ export default defineComponent({
     },
     placeholder: {
       type: String,
-      default: '请输入'
+      default: undefined
     },
     clearable: {
       type: Boolean,
@@ -121,7 +121,7 @@ export default defineComponent({
     const newAttrs = computed(() => ({
       ...attrs,
       ...props,
-      placeholder: i18n('cb.input') || props.placeholder,
+      placeholder: props.placeholder || i18n('cb.input') || '请输入',
       maxlength: max.value,
       showWordLimit: !disabled.value && max.value && textarea.value,
       type: textarea.value ? 'textarea' : attrs.type || 'text'
