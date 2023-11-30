@@ -1,7 +1,7 @@
 <template>
   <div :class="styles.oss">
     <el-image
-      v-if="isUrlImg && path"
+      v-if="isUrlImg || !url"
       ref="refImg"
       :src="path"
       :style="imgStyle"
@@ -11,9 +11,15 @@
       :class="styles.block"
     >
       <template #error>
-        <div class="el-image__error">
+        <div v-if="url" class="el-image__error">
           {{ path ? '加载失败' : '加载中...' }}
         </div>
+        <el-image
+          v-else
+          :class="styles.error"
+          :src="filterOssURL('public/empty-img.jpg')"
+          fit="contain"
+        />
       </template>
     </el-image>
     <video v-else-if="isUrlVideo" :src="path" :style="imgStyle" :class="styles.block" />
@@ -37,7 +43,7 @@
 import { ref, toRefs, reactive, computed, defineComponent, PropType } from 'vue-demi'
 import { ElImage } from '@/components/element'
 import { isImg, isVideo, messageLoading } from '@/utils'
-import { formatOssUrl } from '@/utils/upload'
+import { formatOssUrl, filterOssURL } from '@/utils/upload'
 import { TypeUploadProcessResize, TypeUploadProcess } from '@/types/upload.d'
 import { TypeOssFileState } from '@/types/oss-file.d'
 import Icon from '@/components/icon/index.vue'
@@ -193,7 +199,8 @@ export default defineComponent({
       actionList,
       previewList,
       previewIndex,
-      path
+      path,
+      filterOssURL
     }
   }
 })

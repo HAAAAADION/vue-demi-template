@@ -8,6 +8,13 @@
 window.configApiUrl = 'http://vebk.test.gateway.huitravel.com/resource/sts/assumerole'
 ```
 
+业务项目中可能存在多个不同 OSS 环境的情况, 如: vebk.web, 会存在`普通环境`和`梅州环境`, 而组件库是无法获取到具体业务的环境变量的, 因此业务可以通过显式定义`OSSHost`字段来区分, 如:
+
+PS: 非上述情况的可以忽略该配置
+```javascript
+window.OSSHost = 'https://saas-files.oss-cn-shenzhen.aliyuncs.com'
+```
+
 ## readonly
 
 是否只读, 为 true 相当于禁用上传/编辑/删除功能

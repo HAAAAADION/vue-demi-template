@@ -103,7 +103,8 @@ export const buildProcess = (process?: TypeUploadProcess) => {
 export const filterOssURL = (url: string, process?: TypeUploadProcess) => {
   if (url.startsWith('http')) return url
 
-  let newUrl = `https://${ossCacheConfig.bucket}.${ossCacheConfig.region}.aliyuncs.com/${url}`
+  let newUrl = `${window.OSSHost || import.meta.env.VITE_APP_OSS_HOST}/${url}`
+
   const processText = isImg(url) && buildProcess(process)
   if (processText) newUrl += `?x-oss-process=${processText}`
 
@@ -126,7 +127,6 @@ export const formatOssUrl = async (url: string, options = {}) => {
       process: isImg(url) ? buildProcess(process) : undefined
     })
   } else {
-    if (isEmpty(ossCacheConfig)) await getOssConfig()
     return filterOssURL(url, process)
   }
 }
