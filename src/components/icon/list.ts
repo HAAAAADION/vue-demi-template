@@ -1,5 +1,14 @@
 // #ifdef VUE3
-import { ZoomIn, Download, Edit, Delete, Document, Plus, Sort } from '@element-plus/icons-vue'
+import {
+  ZoomIn,
+  Download,
+  Edit,
+  Delete,
+  Document,
+  Plus,
+  Sort,
+  Loading
+} from '@element-plus/icons-vue'
 
 export default {
   ZoomIn,
@@ -8,7 +17,8 @@ export default {
   Delete,
   Document,
   Plus,
-  Sort
+  Sort,
+  Loading
 }
 // #endif
 
@@ -20,6 +30,7 @@ export default {
   Delete: 'el-icon-delete',
   Document: 'el-icon-document',
   Plus: 'el-icon-plus',
-  Sort: 'el-icon-sort'
+  Sort: 'el-icon-sort',
+  Loading: 'el-icon-loading'
 }
 // #endif

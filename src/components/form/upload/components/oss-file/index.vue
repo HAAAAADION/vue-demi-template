@@ -18,7 +18,7 @@
           v-else
           :class="styles.error"
           :src="filterOssURL('public/empty-img.jpg')"
-          fit="contain"
+          fit="cover"
         />
       </template>
     </el-image>

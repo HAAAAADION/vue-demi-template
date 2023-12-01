@@ -325,6 +325,16 @@
               "name": "tips",
               "description": "提示文案, 位于开关下方",
               "type": "string"
+            },
+            {
+              "name": "loading",
+              "description": "loading 状态",
+              "type": "boolean"
+            },
+            {
+              "name": "lazy",
+              "description": "异步方法",
+              "type": "function"
             }
           ]
         },

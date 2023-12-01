@@ -26,7 +26,9 @@
         :value="getRowKey(item, index)"
         :label="getRender(item, index)"
         :disabled="isFunction(optionDisabled) ? optionDisabled(item, index) : !!optionDisabled"
-      />
+      >
+        <slot :row="item" :$index="index" />
+      </el-option>
       <el-option v-show="loading" disabled value="loading">
         <i class="el-icon-loading" />
       </el-option>
