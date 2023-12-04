@@ -103,6 +103,7 @@ export default defineComponent({
     const selectData = computed<TypeSelectData>(() => {
       if (data.value !== undefined) {
         return data.value!.map(e => ({
+          ...e,
           code: isEmpty(e[valueKey.value]) ? e.code : e[valueKey.value],
           name: isEmpty(e[labelKey.value]) ? e.name : e[labelKey.value]
         }))
