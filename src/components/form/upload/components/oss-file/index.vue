@@ -1,7 +1,7 @@
 <template>
   <div :class="styles.oss">
     <el-image
-      v-if="isUrlImg || !url"
+      v-if="(isUrlImg && path) || !url"
       ref="refImg"
       :src="path"
       :style="imgStyle"
