@@ -1,6 +1,6 @@
 {
   "name": "@component/backend",
-  "version": "1.0.165",
+  "version": "1.0.166",
   "type": "module",
   "main": "./dist/vue2/index.js",
   "module": "./dist/vue2/index.js",
@@ -28,6 +28,7 @@
   "scripts": {
     "dev": "npx vue-demi-switch 3 vue3 && npm run prerun && vite",
     "build": "npm run build:vue2 && npm run build:vue3",
+    "tsc": "vue-tsc",
     "build:common": "vite build",
     "prerun": "node ./scripts/prerun.js",
     "build:vue2": "npx vue-demi-switch 2 vue2 && npm run prerun && npm run build:common",

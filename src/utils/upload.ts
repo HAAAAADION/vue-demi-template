@@ -13,18 +13,32 @@ import { ElMessage } from '@/components/element'
 let ossCacheConfig = {} as TypeOssCacheConfig
 let fetchCache = undefined as Promise<any> | undefined // OSS 签名请求缓存
 
+/**
+ * 网络请求后触发
+ * */
+const afterRequest = () => {
+  try {
+    window.afterRequest && window.afterRequest()
+  } catch (err) {
+    /** */
+  }
+}
+
 const getAuthToken = () => {
   let authToken
 
-  // #ifdef VUE3
-  authToken = localStorage.getItem('token')
-  // #endif
-  // #ifdef VUE2
-  authToken = document?.cookie
-    ?.split('; ')
-    ?.find(e => e.startsWith('Authorization'))
-    ?.split('=')?.[1]
-  // #endif
+  try {
+    authToken = JSON.parse(
+      decodeURIComponent(
+        document?.cookie
+          ?.split('; ')
+          ?.find(e => e.startsWith('Authorization'))
+          ?.split('=')?.[1] as string
+      )
+    )
+  } catch (err) {
+    console.error(new Error('获取 Authorization 失败'))
+  }
 
   return authToken
 }
@@ -37,6 +51,9 @@ export const getOssConfig = async (): Promise<TypeOssConfig> => {
 
       if (curTime < expired) throw new Error('stop')
     }
+
+    // 网络请求后回调
+    afterRequest()
 
     fetchCache =
       fetchCache ||
@@ -194,6 +211,9 @@ export const upload = async (file: File, options = {} as TypeUploadOptions) => {
 }
 
 export const multipleUpload = (list: string[]) => {
+  // 网络请求后回调
+  afterRequest()
+
   return axios.post(window.configCopyUploadApiUrl, list, {
     headers: { Authorization: `Bearer ${getAuthToken()}` }
   })

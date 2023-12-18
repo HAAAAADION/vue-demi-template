@@ -15,6 +15,12 @@ PS: 非上述情况的可以忽略该配置
 window.OSSHost = 'https://saas-files.oss-cn-shenzhen.aliyuncs.com'
 ```
 
+业务中可能存在需要在网络请求后自定义处理逻辑, 业务方可以自行配置`window.afterRequest`进行自定义处理, 该方法会在任何网络请求后触发
+
+```javascript
+window.afterRequest = () => {}
+```
+
 ## readonly
 
 是否只读, 为 true 相当于禁用上传/编辑/删除功能
