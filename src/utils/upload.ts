@@ -35,7 +35,7 @@ const getAuthToken = () => {
           ?.find(e => e.startsWith('Authorization'))
           ?.split('=')?.[1] as string
       )
-    )
+    )?.accessToken
   } catch (err) {
     console.error(new Error('获取 Authorization 失败'))
   }
