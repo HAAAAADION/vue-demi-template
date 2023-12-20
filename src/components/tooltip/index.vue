@@ -6,8 +6,7 @@
     </template>
     <div
       :class="{
-        [styles.multiEllipsis]: isMultiple,
-        [styles.ellipsis]: line
+        [styles.multiEllipsis]: isMultiple
       }"
       :style="style"
       @mouseover="checkDisabled"
@@ -53,7 +52,7 @@ export default defineComponent({
     const disabled = ref<boolean | undefined>(undefined)
 
     // 是否多行溢出隐藏
-    const isMultiple = computed(() => +props.line > 1)
+    const isMultiple = computed(() => +props.line)
     // 动态样式
     const style = computed(() => {
       const result = {} as Record<string, any>

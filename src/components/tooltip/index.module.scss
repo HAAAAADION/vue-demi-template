@@ -1,8 +1,9 @@
-.ellipsis {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
+// 在某些情况下, 浏览器兼容性不是很好
+//.ellipsis {
+//  overflow: hidden;
+//  white-space: nowrap;
+//  text-overflow: ellipsis;
+//}
 
 .multi-ellipsis {
   display: -webkit-box;
