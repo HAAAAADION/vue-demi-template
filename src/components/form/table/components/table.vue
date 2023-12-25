@@ -161,7 +161,10 @@ export default defineComponent({
     }
 
     const drag = list => {
+      // TODO 排序后输出的数据是旧的
+      // #ifdef VUE3
       emit('drag', list)
+      // #endif
     }
 
     watch(
