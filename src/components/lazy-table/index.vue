@@ -18,7 +18,18 @@
       >
         <bk-icon name="Sort" />
       </el-table-column>
-      <slot />
+      <template v-if="column.length">
+        <el-table-column v-for="item in column" :key="item.prop || item.key" v-bind="item">
+          <template v-if="item.type !== 'selection'" #default="{ row, $index }">
+            {{
+              item.render
+                ? item.render(safeGet(row, item.prop), row, $index)
+                : safeGet(row, item.prop)
+            }}
+          </template>
+        </el-table-column>
+      </template>
+      <slot v-else />
     </el-table>
     <el-pagination
       v-if="isShowPagination"
@@ -37,6 +48,7 @@
 <script lang="ts">
 import { reactive, toRefs, computed, defineComponent, PropType } from 'vue-demi'
 import { TypeTableFetchApi } from '@/types/table'
+import { safeGet } from '@/utils'
 import { ElTable, ElTableColumn, ElPagination } from '@/components/element'
 import BkDraggable from '@/components/draggable/index.vue'
 import BkIcon from '@/components/icon/index.vue'
@@ -82,6 +94,10 @@ export default defineComponent({
     drag: {
       type: [Boolean, String],
       default: false
+    },
+    column: {
+      type: Array,
+      default: () => []
     }
   },
   setup(props, { attrs, listeners, slots, emit, expose }): any {
@@ -184,6 +200,7 @@ export default defineComponent({
       pagination,
       loading,
       isShowPagination,
+      safeGet,
       pageChange,
       sizeChange,
       refresh,
