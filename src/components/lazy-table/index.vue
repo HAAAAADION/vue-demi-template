@@ -7,7 +7,14 @@
     :options="{ handle: '.sort-handler' }"
     @change="handleDrag"
   >
-    <el-table v-loading="loading" v-bind="attrs" v-on="on" :data="list" :row-key="rowKey">
+    <el-table
+      ref="refList"
+      v-loading="loading"
+      v-bind="attrs"
+      v-on="on"
+      :data="list"
+      :row-key="rowKey"
+    >
       <el-table-column
         v-if="drag"
         label="排序"
@@ -46,7 +53,7 @@
 </template>
 
 <script lang="ts">
-import { reactive, toRefs, computed, defineComponent, PropType } from 'vue-demi'
+import { reactive, toRefs, computed, defineComponent, PropType, ref } from 'vue-demi'
 import { TypeTableFetchApi } from '@/types/table'
 import { safeGet } from '@/utils'
 import { ElTable, ElTableColumn, ElPagination } from '@/components/element'
@@ -101,6 +108,7 @@ export default defineComponent({
     }
   },
   setup(props, { attrs, listeners, slots, emit, expose }): any {
+    const refList = ref<any>(null)
     const state = reactive({
       loading: false,
       list: [] as Record<string, any>[],
@@ -186,15 +194,21 @@ export default defineComponent({
       emit('drag', list)
     }
 
+    const toggleRowSelection = (row, selected: boolean) => {
+      if (!refList.value) return
+      refList.value.toggleRowSelection(row, selected)
+    }
+
     if (props.autoFetch) fetchData()
 
-    expose({ refresh, refreshCurrentPage: fetchData })
+    expose({ refresh, refreshCurrentPage: fetchData, toggleRowSelection })
 
     return {
       styles,
       slots,
       attrs,
       on,
+      refList,
       pageSizes,
       list,
       pagination,
@@ -205,6 +219,7 @@ export default defineComponent({
       sizeChange,
       refresh,
       refreshCurrentPage: fetchData,
+      toggleRowSelection,
       handleDrag
     }
   }

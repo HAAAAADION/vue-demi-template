@@ -131,6 +131,11 @@ export default defineComponent({
       refLazyTable.value.refreshCurrentPage()
     }
 
+    const toggleRowSelection = (...args) => {
+      if (!refLazyTable.value) return
+      refLazyTable.value.toggleRowSelection(...args)
+    }
+
     const fetchData = async (params: TypeTableFetchApiParams) => {
       const { pageIndex, pageSize } = params
 
@@ -176,7 +181,7 @@ export default defineComponent({
     )
 
     provide('isPureList', isPureList)
-    expose({ refresh, refreshCurrentPage, validate, clearValidate })
+    expose({ refresh, refreshCurrentPage, validate, clearValidate, toggleRowSelection })
 
     return {
       styles,
@@ -194,6 +199,7 @@ export default defineComponent({
       refreshCurrentPage,
       validate,
       clearValidate,
+      toggleRowSelection,
       drag
     }
   }
