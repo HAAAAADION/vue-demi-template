@@ -151,8 +151,11 @@ export default defineComponent({
 
       if (checkType && type !== checkType) return
 
+      const data = selectData.value.find(v => v.code === e)
+
       emit('update:modelValue', e)
       emit('change', e)
+      emit('callback', data)
     }
 
     return {
